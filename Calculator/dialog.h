@@ -18,6 +18,8 @@ public:
 private slots:
     void on_countBtn_clicked();
 
+    void on_lineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::Dialog *ui;
 };

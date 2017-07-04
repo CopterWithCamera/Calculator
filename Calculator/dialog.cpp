@@ -24,3 +24,13 @@ void Dialog::on_countBtn_clicked()
     double area=valueInt*valueInt*PI;
     ui->areaLabel_2->setText(tempStr.setNum(area));
 }
+
+void Dialog::on_lineEdit_textChanged(const QString &arg1)
+{
+    bool ok;
+    QString tempStr;
+    QString valueStr=ui->lineEdit->text();
+    int valueInt=valueStr.toInt(&ok);
+    double area=valueInt*valueInt*PI;
+    ui->areaLabel_2->setText(tempStr.setNum(area));
+}
