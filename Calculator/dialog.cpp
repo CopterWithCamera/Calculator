@@ -14,7 +14,8 @@ Dialog::Dialog(QWidget *parent)
     mainLayout->addWidget(lineEdit,0,1);
     mainLayout->addWidget(label2,1,0);
     mainLayout->addWidget(button,1,1);
-    connect(button,SIGNAL(clicked(bool)),this,SLOT(showArea()));
+    //connect(button,SIGNAL(clicked(bool)),this,SLOT(showArea()));
+    connect(lineEdit,SIGNAL(textChanged(QString)),this,SLOT(showArea()));
 }
 
 Dialog::~Dialog()
