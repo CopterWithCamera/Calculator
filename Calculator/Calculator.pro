@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-07-04T15:28:09
+# Project created by QtCreator 2017-07-05T22:05:03
 #
 #-------------------------------------------------
 
@@ -25,7 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        dialog.cpp
+        mainwindow.cpp \
+    serialport_ctl.cpp
 
 HEADERS += \
-        dialog.h
+        mainwindow.h \
+    serialport_ctl.h
+
+FORMS += \
+        mainwindow.ui
