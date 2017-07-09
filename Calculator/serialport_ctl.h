@@ -13,7 +13,7 @@ class SerialPort_Ctl : public QObject
 {
     Q_OBJECT
 private:
-    QSerialPort *port;
+    QSerialPort * port;
     QByteArray readBuffer, sendBuffer;
 
     void Readport();

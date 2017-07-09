@@ -17,8 +17,7 @@ Writeport()
     port->write(sendBuffer);
 }
 
-void SerialPort_Ctl::
-SerialPort_Open(QString& portname, int Baud)
+void SerialPort_Ctl::SerialPort_Open(QString& portname, int Baud)
 {
     //port是Qt串口类对象指针
 

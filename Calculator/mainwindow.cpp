@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    qRegisterMetaType<QString>("QString&");
     MyCom.moveToThread(&MyComThread);
     MyComThread.start();
 
@@ -85,14 +85,14 @@ char MainWindow::ConvertHexChar(char ch)
 
 void MainWindow::on_pushButton_UpdateSerialPortList_clicked()
 {
-    QList<QSerialPortInfo> portInfoList =QSerialPortInfo::availablePorts();
+    QList<QSerialPortInfo> availableList =QSerialPortInfo::availablePorts();
     QStringList portList;
 
     ui->comboBox_SerialPortList->clear();
-    if(portInfoList.isEmpty()){
+    if(availableList.isEmpty()){
         ui->comboBox_SerialPortList->addItem("None");
     }else{
-        foreach (QSerialPortInfo info, portInfoList) {
+        foreach (QSerialPortInfo info, availableList) {
             portList<< info.portName();
         }
         ui->comboBox_SerialPortList->addItems(portList);
@@ -118,10 +118,10 @@ void MainWindow::on_pushButton_Lock_clicked()
 {
     char LockCmdBuffer[4];
     LockCmdBuffer[0] =0xAA;
-    LockCmdBuffer[1] =0xAA;
+    LockCmdBuffer[1] =0xAF;
     LockCmdBuffer[2] =1;
     LockCmdBuffer[3] =0x58;
-    QByteArray LockCmd =LockCmdBuffer;
+    QByteArray LockCmd(LockCmdBuffer,4);
 
     emit SendCmd(LockCmd);
 
@@ -132,10 +132,10 @@ void MainWindow::on_pushButton_UnLock_clicked()
 {
     char UnLockCmdBuffer[4];
     UnLockCmdBuffer[0] =0xAA;
-    UnLockCmdBuffer[1] =0xAA;
+    UnLockCmdBuffer[1] =0xAF;
     UnLockCmdBuffer[2] =1;
     UnLockCmdBuffer[3] =0x59;
-    QByteArray UnLockCmd =UnLockCmdBuffer;
+    QByteArray UnLockCmd(UnLockCmdBuffer,4);
 
     emit SendCmd(UnLockCmd);
 
@@ -146,12 +146,12 @@ void MainWindow::on_pushButton_incHeight_clicked()
 {
     char IncHeightCmdBuffer[5];
     IncHeightCmdBuffer[0] =0xAA;
-    IncHeightCmdBuffer[1] =0xAA;
+    IncHeightCmdBuffer[1] =0xAF;
     IncHeightCmdBuffer[2] =2;
     IncHeightCmdBuffer[3] =0x50;
     Height += 1;
     IncHeightCmdBuffer[4] =Height;
-    QByteArray IncHeightCmd =IncHeightCmdBuffer;
+    QByteArray IncHeightCmd(IncHeightCmdBuffer,5);
     ui->label_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(IncHeightCmd);
@@ -163,12 +163,12 @@ void MainWindow::on_pushButton_decHeight_clicked()
 {
     char DecHeightCmdBuffer[5];
     DecHeightCmdBuffer[0] =0xAA;
-    DecHeightCmdBuffer[1] =0xAA;
+    DecHeightCmdBuffer[1] =0xAF;
     DecHeightCmdBuffer[2] =2;
     DecHeightCmdBuffer[3] =0x50;
     Height -= 1;
     DecHeightCmdBuffer[4] =Height;
-    QByteArray DecHeightCmd =DecHeightCmdBuffer;
+    QByteArray DecHeightCmd(DecHeightCmdBuffer,5);
     ui->label_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(DecHeightCmd);
