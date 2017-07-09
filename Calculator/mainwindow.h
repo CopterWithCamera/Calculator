@@ -48,6 +48,7 @@ private slots:
 
     void on_pushButton_SerialPortSend_clicked();
 
+    void SerialPort_Closed_SLOT();
 };
 
 #endif // MAINWINDOW_H

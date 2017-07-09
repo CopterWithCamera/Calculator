@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::Open_SerialPort,&MyCom,&SerialPort_Ctl::SerialPort_Open);
     connect(this,&MainWindow::Close_SerialPort,&MyCom,&SerialPort_Ctl::SerialPort_Close);
     connect(this,&MainWindow::SendCmd,&MyCom,&SerialPort_Ctl::SerialPort_bytesWrite);
+    connect(&MyCom,SIGNAL(SerialPort_Closed()),this,SLOT(SerialPort_Closed_SLOT()));
 
     ui->plainTextEdit->setPlainText("Welcome, GroundStation Ready!\n");
 }
@@ -110,7 +111,7 @@ void MainWindow::on_checkBox_SerialPortOpen_clicked()
     }else{
         emit Close_SerialPort();
 
-        ui->plainTextEdit->insertPlainText("SerialPort Closed!\n");
+        //ui->plainTextEdit->insertPlainText("SerialPort Closed!\n");
     }
 }
 
@@ -187,4 +188,7 @@ void MainWindow::on_pushButton_SerialPortSend_clicked()
     emit SendCmd(Cmd);
 }
 
-
+void MainWindow::SerialPort_Closed_SLOT()
+{
+    ui->plainTextEdit->insertPlainText("SerialPort Closed\n");
+}
