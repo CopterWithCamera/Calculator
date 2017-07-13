@@ -9,12 +9,13 @@ SerialPort_Ctl::SerialPort_Ctl(QObject *parent) : QObject(parent)
 void SerialPort_Ctl::
 Readport()
 {
-    readBuffer =port->readAll();
+    readBuffer.append(port->readAll());
 }
 void SerialPort_Ctl::
 Writeport()
 {
     port->write(sendBuffer);
+    sendBuffer.clear();
 }
 
 void SerialPort_Ctl::SerialPort_Open(QString& portname, int Baud)
@@ -57,7 +58,8 @@ void SerialPort_Ctl::SerialPort_Open(QString& portname, int Baud)
     port->setFlowControl(QSerialPort::NoFlowControl);
 
     //连接槽函数（由于串口对象是临时创建的，所以槽函数要临时连接）
-    //connect();
+    //connect(port,SIGNAL(readyRead()),this,SLOT(Readport()));
+    connect(port,SIGNAL(readyRead()),this,SLOT(CallAnalysis()));
 
     emit SerialPort_Opened();
 }
@@ -86,6 +88,16 @@ SerialPort_bytesWrite(QByteArray sendData)
     emit SerialPort_Written();
 }
 
+void SerialPort_Ctl::CallAnalysis()
+{
+    Readport();
+    //if(mutex_Ana.tryLock()){
+        emit TranstoAna(readBuffer);
+        readBuffer.clear();
+        //mutex_Ana.unlock();
+    //}
+}
+/*
 void SerialPort_Ctl::
 SerialPort_bytesRead(QByteArray& readData) //After read clear the buffer
 {
@@ -95,7 +107,10 @@ SerialPort_bytesRead(QByteArray& readData) //After read clear the buffer
         readData = readBuffer;
         emit SerialPort_Read();
     }
+    readBuffer.clear();
 }
+*/
+
 /*
 void SerialPort_Ctl::
 SerialPort_GetList(QString& portList)

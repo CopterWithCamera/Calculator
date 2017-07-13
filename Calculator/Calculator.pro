@@ -27,11 +27,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    serialport_ctl.cpp
+    serialport_ctl.cpp \
+    packanalysis.cpp
 
 HEADERS += \
         mainwindow.h \
-    serialport_ctl.h
+    serialport_ctl.h \
+    packanalysis.h \
+    main.h
 
 FORMS += \
         mainwindow.ui

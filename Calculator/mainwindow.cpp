@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     qRegisterMetaType<QString>("QString&");
+    qRegisterMetaType<QString>("QByteArray&");
+    qRegisterMetaType<QString>("QByteArray");
     MyCom.moveToThread(&MyComThread);
     MyComThread.start();
 
@@ -14,6 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,&MainWindow::Close_SerialPort,&MyCom,&SerialPort_Ctl::SerialPort_Close);
     connect(this,&MainWindow::SendCmd,&MyCom,&SerialPort_Ctl::SerialPort_bytesWrite);
     connect(&MyCom,SIGNAL(SerialPort_Closed()),this,SLOT(SerialPort_Closed_SLOT()));
+
+    MyAna.moveToThread((&MyAnaThread));
+    MyAnaThread.start();
+
+    connect(&MyCom,SIGNAL(TranstoAna(QByteArray&)),&MyAna,SLOT(ImportData(QByteArray&)));
+    connect(&MyAna,SIGNAL(StatusUpdated(char,QByteArray)),this,SLOT(StatusUpdate(char,QByteArray)));
 
     ui->plainTextEdit->setPlainText("Welcome, GroundStation Ready!\n");
 }
@@ -24,6 +32,9 @@ MainWindow::~MainWindow()
 
     MyComThread.quit();
     MyComThread.wait();
+
+    MyAnaThread.quit();
+    MyAnaThread.wait();
 }
 
 
@@ -143,17 +154,33 @@ void MainWindow::on_pushButton_UnLock_clicked()
     ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
 }
 
+void MainWindow::on_pushButton_SendHeight_clicked()
+{
+    Height =ui->lineEdit_HeightValue->text().toInt();
+
+    char HeightCmdBuffer[5];
+    HeightCmdBuffer[0] =0xAA;
+    HeightCmdBuffer[1] =0xAF;
+    HeightCmdBuffer[2] =0x50;
+    HeightCmdBuffer[3] =1;
+    HeightCmdBuffer[4] =Height;
+    QByteArray HeightCmd(HeightCmdBuffer,5);
+    emit SendCmd(HeightCmd);
+
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+}
+
 void MainWindow::on_pushButton_incHeight_clicked()
 {
     char IncHeightCmdBuffer[5];
     IncHeightCmdBuffer[0] =0xAA;
     IncHeightCmdBuffer[1] =0xAF;
-    IncHeightCmdBuffer[2] =2;
-    IncHeightCmdBuffer[3] =0x50;
+    IncHeightCmdBuffer[2] =0x50;
+    IncHeightCmdBuffer[3] =1;
     Height += 1;
     IncHeightCmdBuffer[4] =Height;
     QByteArray IncHeightCmd(IncHeightCmdBuffer,5);
-    ui->label_HeightValue->setText(QString::number(Height));
+    ui->lineEdit_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(IncHeightCmd);
 
@@ -165,12 +192,12 @@ void MainWindow::on_pushButton_decHeight_clicked()
     char DecHeightCmdBuffer[5];
     DecHeightCmdBuffer[0] =0xAA;
     DecHeightCmdBuffer[1] =0xAF;
-    DecHeightCmdBuffer[2] =2;
-    DecHeightCmdBuffer[3] =0x50;
+    DecHeightCmdBuffer[2] =0x50;
+    DecHeightCmdBuffer[3] =1;
     Height -= 1;
     DecHeightCmdBuffer[4] =Height;
     QByteArray DecHeightCmd(DecHeightCmdBuffer,5);
-    ui->label_HeightValue->setText(QString::number(Height));
+    ui->lineEdit_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(DecHeightCmd);
 
@@ -191,4 +218,23 @@ void MainWindow::on_pushButton_SerialPortSend_clicked()
 void MainWindow::SerialPort_Closed_SLOT()
 {
     ui->plainTextEdit->insertPlainText("SerialPort Closed\n");
+}
+
+void MainWindow::StatusUpdate(char type, QByteArray value)
+{
+    int i =0,a =(unsigned char)type;
+    ushort tmp;
+    QString str;
+    switch(a){
+        case 0xF2:
+            tmp =value[0];str.setNum(tmp);ui->label_ModeValue->setText(str);
+            tmp =value[1];str.setNum(tmp);ui->label_InterModeValue->setText(str);
+            tmp =value[2];str.setNum(tmp);ui->label_FlyReadyValue->setText(str);
+            tmp =value[3];str.setNum(tmp);ui->label_All_OutValue->setText(str);
+            tmp =value[4];str.setNum(tmp);ui->label_UltraStatusValue->setText(str);
+            break;
+        default:
+            break;
+    }
+    ui->plainTextEdit->insertPlainText("SerialPort cmd receive\n");
 }
