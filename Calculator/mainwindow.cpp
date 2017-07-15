@@ -94,6 +94,18 @@ char MainWindow::ConvertHexChar(char ch)
     else return ch-ch;//不在0-f范围内的会发送成0
 }
 
+char MainWindow::SumVerify(uchar* str, int n)
+{
+    int i;
+    uchar sum;
+
+    for(i =0, sum =0; i <n; i++){
+        sum +=*(str+i);
+    }
+
+    return (char)sum;
+}
+
 
 void MainWindow::on_pushButton_UpdateSerialPortList_clicked()
 {
@@ -128,12 +140,14 @@ void MainWindow::on_checkBox_SerialPortOpen_clicked()
 
 void MainWindow::on_pushButton_Lock_clicked()
 {
-    char LockCmdBuffer[4];
+    char LockCmdBuffer[6];
     LockCmdBuffer[0] =0xAA;
     LockCmdBuffer[1] =0xAF;
-    LockCmdBuffer[2] =1;
-    LockCmdBuffer[3] =0x58;
-    QByteArray LockCmd(LockCmdBuffer,4);
+    LockCmdBuffer[2] =0x40;
+    LockCmdBuffer[3] =1;
+    LockCmdBuffer[4] =0x01;
+    LockCmdBuffer[5] =SumVerify((uchar*)LockCmdBuffer,5);
+    QByteArray LockCmd(LockCmdBuffer,6);
 
     emit SendCmd(LockCmd);
 
@@ -142,12 +156,14 @@ void MainWindow::on_pushButton_Lock_clicked()
 
 void MainWindow::on_pushButton_UnLock_clicked()
 {
-    char UnLockCmdBuffer[4];
+    char UnLockCmdBuffer[6];
     UnLockCmdBuffer[0] =0xAA;
     UnLockCmdBuffer[1] =0xAF;
-    UnLockCmdBuffer[2] =1;
-    UnLockCmdBuffer[3] =0x59;
-    QByteArray UnLockCmd(UnLockCmdBuffer,4);
+    UnLockCmdBuffer[2] =0x40;
+    UnLockCmdBuffer[3] =1;
+    UnLockCmdBuffer[4] =0x02;
+    UnLockCmdBuffer[5] =SumVerify((uchar*)UnLockCmdBuffer,5);
+    QByteArray UnLockCmd(UnLockCmdBuffer,6);
 
     emit SendCmd(UnLockCmd);
 
@@ -158,13 +174,14 @@ void MainWindow::on_pushButton_SendHeight_clicked()
 {
     Height =ui->lineEdit_HeightValue->text().toInt();
 
-    char HeightCmdBuffer[5];
+    char HeightCmdBuffer[6];
     HeightCmdBuffer[0] =0xAA;
     HeightCmdBuffer[1] =0xAF;
-    HeightCmdBuffer[2] =0x50;
+    HeightCmdBuffer[2] =0x42;
     HeightCmdBuffer[3] =1;
     HeightCmdBuffer[4] =Height;
-    QByteArray HeightCmd(HeightCmdBuffer,5);
+    HeightCmdBuffer[5] =SumVerify((uchar*)HeightCmdBuffer,5);
+    QByteArray HeightCmd(HeightCmdBuffer,6);
     emit SendCmd(HeightCmd);
 
     ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
@@ -172,14 +189,15 @@ void MainWindow::on_pushButton_SendHeight_clicked()
 
 void MainWindow::on_pushButton_incHeight_clicked()
 {
-    char IncHeightCmdBuffer[5];
+    char IncHeightCmdBuffer[6];
     IncHeightCmdBuffer[0] =0xAA;
     IncHeightCmdBuffer[1] =0xAF;
-    IncHeightCmdBuffer[2] =0x50;
+    IncHeightCmdBuffer[2] =0x42;
     IncHeightCmdBuffer[3] =1;
     Height += 1;
     IncHeightCmdBuffer[4] =Height;
-    QByteArray IncHeightCmd(IncHeightCmdBuffer,5);
+    IncHeightCmdBuffer[5] =SumVerify((uchar*)IncHeightCmdBuffer,5);
+    QByteArray IncHeightCmd(IncHeightCmdBuffer,6);
     ui->lineEdit_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(IncHeightCmd);
@@ -189,14 +207,15 @@ void MainWindow::on_pushButton_incHeight_clicked()
 
 void MainWindow::on_pushButton_decHeight_clicked()
 {
-    char DecHeightCmdBuffer[5];
+    char DecHeightCmdBuffer[6];
     DecHeightCmdBuffer[0] =0xAA;
     DecHeightCmdBuffer[1] =0xAF;
-    DecHeightCmdBuffer[2] =0x50;
+    DecHeightCmdBuffer[2] =0x42;
     DecHeightCmdBuffer[3] =1;
     Height -= 1;
     DecHeightCmdBuffer[4] =Height;
-    QByteArray DecHeightCmd(DecHeightCmdBuffer,5);
+    DecHeightCmdBuffer[5] =SumVerify((uchar*)DecHeightCmdBuffer,5);
+    QByteArray DecHeightCmd(DecHeightCmdBuffer,6);
     ui->lineEdit_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(DecHeightCmd);
@@ -222,7 +241,7 @@ void MainWindow::SerialPort_Closed_SLOT()
 
 void MainWindow::StatusUpdate(char type, QByteArray value)
 {
-    int i =0,a =(unsigned char)type;
+    int a =(unsigned char)type;
     ushort tmp;
     QString str;
     switch(a){
@@ -237,4 +256,79 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
             break;
     }
     ui->plainTextEdit->insertPlainText("SerialPort cmd receive\n");
+}
+
+void MainWindow::on_pushButton_SaveCoef_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x05;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+}
+
+void MainWindow::on_pushButton_Front_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x01;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+}
+
+void MainWindow::on_pushButton_Back_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x02;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+}
+
+void MainWindow::on_pushButton_Left_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x03;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+}
+
+void MainWindow::on_pushButton_Right_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x04;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
 }

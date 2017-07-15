@@ -437,7 +437,7 @@
       <string>右</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_Up">
+    <widget class="QPushButton" name="pushButton_Front">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -447,7 +447,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>上</string>
+      <string>前</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_Left">
@@ -463,7 +463,7 @@
       <string>左</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_Down">
+    <widget class="QPushButton" name="pushButton_Back">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -473,7 +473,20 @@
       </rect>
      </property>
      <property name="text">
-      <string>下</string>
+      <string>后</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_SaveCoef">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>50</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>存储</string>
      </property>
     </widget>
    </widget>

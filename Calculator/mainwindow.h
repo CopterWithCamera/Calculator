@@ -27,6 +27,7 @@ public:
 
     QByteArray StringToHex(QString str);
     char ConvertHexChar(char ch);
+    char SumVerify(uchar* str, int n);
 private:
     Ui::MainWindow *ui;
 
@@ -53,7 +54,7 @@ private slots:
     void on_pushButton_UnLock_clicked();
 
     //Height Cmd
-    void on_lineEdit_HeightValue_textChanged(const QString &arg1);
+    void on_pushButton_SendHeight_clicked();
     void on_pushButton_incHeight_clicked();
     void on_pushButton_decHeight_clicked();
 
@@ -63,7 +64,12 @@ private slots:
     //StatusUpdate
     void StatusUpdate(char type, QByteArray value);
 
-    void on_pushButton_SendHeight_clicked();
+
+    void on_pushButton_SaveCoef_clicked();
+    void on_pushButton_Front_clicked();
+    void on_pushButton_Back_clicked();
+    void on_pushButton_Left_clicked();
+    void on_pushButton_Right_clicked();
 };
 
 #endif // MAINWINDOW_H
