@@ -14,11 +14,12 @@ void PackAnalysis::ImportData(QByteArray& newData)
 
 void PackAnalysis::unPack()
 {
-    if(mutex_Ana.tryLock(10)){
+    //if(mutex_Ana.tryLock(10)){
         char type;
         QByteArray value;
         while(!waitingfifo.isEmpty() \
               || len <waitingfifo.size()){
+
             switch (len) {
                 case 0:
                 case 1:
@@ -34,6 +35,11 @@ void PackAnalysis::unPack()
                     break;
                 case 3:
                     len +=waitingfifo[len];
+                    if(len == 3)
+                    {
+                        waitingfifo.remove(0,4);
+                        len = 0;
+                    }
                     break;
                 default:
                     waitingfifo.remove(0,4);
@@ -42,8 +48,9 @@ void PackAnalysis::unPack()
                     waitingfifo.remove(0,len);
                     len =0;
                     emit StatusUpdated(type, value);
+                    value.clear();
                     break;
             }
-        }mutex_Ana.unlock();
-    }
+        }//mutex_Ana.unlock();
+    //}
 }

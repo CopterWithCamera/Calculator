@@ -18,6 +18,7 @@ private:
 
 public:
     explicit SerialPort_Ctl(QObject *parent = nullptr);
+    //~SerialPort_Ctl();
     QString BytesToString(QByteArray& data);
     QByteArray StringToBytes(QString& data);
 

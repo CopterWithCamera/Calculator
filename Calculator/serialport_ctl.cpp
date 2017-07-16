@@ -5,7 +5,12 @@ SerialPort_Ctl::SerialPort_Ctl(QObject *parent) : QObject(parent)
     port =nullptr;
 
 }
-
+/*
+SerialPort_Ctl::~SerialPort_Ctl()
+{
+    SerialPort_Close();
+}
+*/
 void SerialPort_Ctl::
 Readport()
 {
@@ -70,6 +75,7 @@ SerialPort_Close()
     if(!port->isOpen())
         return;
 
+    disconnect(port,SIGNAL(readyRead()),this,SLOT(CallAnalysis()));
     //关闭串口
     port->clear();
     port->close();
