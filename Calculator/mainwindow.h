@@ -29,6 +29,7 @@ public:
     char ConvertHexChar(char ch);
     char SumVerify(uchar* str, int n);
 private:
+    unsigned char Height;
     Ui::MainWindow *ui;
 
     QThread MyComThread;
@@ -37,7 +38,6 @@ private:
     QThread MyAnaThread;
     PackAnalysis MyAna;
 
-    uchar Height;
 signals:
     void Open_SerialPort(QString& portname, int Baud);
     void Close_SerialPort();

@@ -48,7 +48,8 @@ void PackAnalysis::unPack()
                     waitingfifo.remove(0,4);
                     len -=4;
                     value.clear();
-                    value.replace(0,len,waitingfifo);
+                    value.append(waitingfifo);
+                    value.resize(len);
                     waitingfifo.remove(0,len);
                     if(type ==(char)0xF2)
                         emit StatusUpdated(type, value);

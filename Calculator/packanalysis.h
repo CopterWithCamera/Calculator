@@ -2,6 +2,7 @@
 #define PACKANALYSIS_H
 
 #include <QObject>
+#include <QByteArray>
 
 #include "main.h"
 
