@@ -58,6 +58,8 @@ public:
     QLabel *label_All_Out;
     QLabel *label_UltraStatusValue;
     QLabel *label_UltraStatus;
+    QLabel *label_VoltageValue;
+    QLabel *label_Voltage;
     QFrame *frame_AdjustButton;
     QPushButton *pushButton_Right;
     QPushButton *pushButton_Front;
@@ -185,6 +187,16 @@ public:
         label_UltraStatus = new QLabel(groupBox_Status);
         label_UltraStatus->setObjectName(QStringLiteral("label_UltraStatus"));
         label_UltraStatus->setGeometry(QRect(10, 309, 91, 16));
+        label_VoltageValue = new QLabel(groupBox_Status);
+        label_VoltageValue->setObjectName(QStringLiteral("label_VoltageValue"));
+        label_VoltageValue->setGeometry(QRect(10, 401, 91, 41));
+        label_VoltageValue->setFont(font);
+        label_VoltageValue->setFrameShape(QFrame::Panel);
+        label_VoltageValue->setFrameShadow(QFrame::Sunken);
+        label_VoltageValue->setAlignment(Qt::AlignCenter);
+        label_Voltage = new QLabel(groupBox_Status);
+        label_Voltage->setObjectName(QStringLiteral("label_Voltage"));
+        label_Voltage->setGeometry(QRect(10, 380, 91, 16));
         frame_AdjustButton = new QFrame(centralWidget);
         frame_AdjustButton->setObjectName(QStringLiteral("frame_AdjustButton"));
         frame_AdjustButton->setGeometry(QRect(160, 310, 301, 161));
@@ -248,6 +260,8 @@ public:
         label_All_Out->setText(QApplication::translate("MainWindow", "\347\224\265\346\234\272\350\276\223\345\207\272\357\274\232", Q_NULLPTR));
         label_UltraStatusValue->setText(QString());
         label_UltraStatus->setText(QApplication::translate("MainWindow", "\350\266\205\345\243\260\347\212\266\346\200\201\357\274\232", Q_NULLPTR));
+        label_VoltageValue->setText(QString());
+        label_Voltage->setText(QApplication::translate("MainWindow", "\347\224\265\345\216\213\357\274\232", Q_NULLPTR));
         pushButton_Right->setText(QApplication::translate("MainWindow", "\345\217\263", Q_NULLPTR));
         pushButton_Front->setText(QApplication::translate("MainWindow", "\345\211\215", Q_NULLPTR));
         pushButton_Left->setText(QApplication::translate("MainWindow", "\345\267\246", Q_NULLPTR));

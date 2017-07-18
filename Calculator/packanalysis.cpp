@@ -46,7 +46,8 @@ void PackAnalysis::unPack()
                             value.clear();
                             value.append(waitingfifo);
                             value.resize(len);
-                            if(type ==(char)0xF2)
+                            if(type ==(char)0xF2 ||\
+                               type ==(char)0x05)
                                 /*
                                 if(value[0] !=(char)3\
                                    || value[3] !=(char)1\

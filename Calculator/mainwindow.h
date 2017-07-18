@@ -8,6 +8,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QThread>
+#include <QPalette>
 
 #include "main.h"
 #include "serialport_ctl.h"
@@ -31,6 +32,8 @@ public:
 private:
     unsigned char Height;
     Ui::MainWindow *ui;
+    QPalette fontRed, fontGreen, \
+             fontBlue, fontYellow;
 
     QThread MyComThread;
     SerialPort_Ctl MyCom;

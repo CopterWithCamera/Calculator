@@ -453,6 +453,47 @@
       <string>超声状态：</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_VoltageValue">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>401</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_Voltage">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>电压：</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_AdjustButton">
     <property name="geometry">

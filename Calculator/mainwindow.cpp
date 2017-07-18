@@ -9,6 +9,12 @@ MainWindow::MainWindow(QWidget *parent) :
     qRegisterMetaType<QString>("QString&");
     qRegisterMetaType<QString>("QByteArray&");
     qRegisterMetaType<QString>("QByteArray");
+
+    fontRed.setColor(QPalette::WindowText,Qt::red);
+    fontGreen.setColor(QPalette::WindowText,Qt::green);
+    fontBlue.setColor(QPalette::WindowText,Qt::blue);
+    fontYellow.setColor(QPalette::WindowText,Qt::yellow);
+
     MyCom.moveToThread(&MyComThread);
     MyComThread.start();
 
@@ -242,20 +248,94 @@ void MainWindow::SerialPort_Closed_SLOT()
 void MainWindow::StatusUpdate(char type, QByteArray value)
 {
     int a =(unsigned char)type;
-    uchar tmp;
     QString str;
     switch(a){
+
+        case 0x05:
+            ushort voltage;
+            float fvoltage;
+            voltage =value[0];
+            voltage *=256;
+            voltage +=(uchar)value[1];
+            fvoltage = voltage/100.0;
+            str.setNum(fvoltage);ui->label_VoltageValue->setText(str);
+            if(voltage >=1100)
+                ui->label_VoltageValue->setPalette(fontGreen);
+            else
+                ui->label_VoltageValue->setPalette(fontRed);
+            break;
+
         case 0xF2:
-            tmp =value[0];str.setNum(tmp);ui->label_ModeValue->setText(str);
+            uchar tmp;
+
+            tmp =value[0];
+            switch(tmp){
+                case 0:
+                    ui->label_ModeValue->setText("姿态");
+                    ui->label_ModeValue->setPalette(fontRed);
+                    break;
+                case 1:
+                    ui->label_ModeValue->setText("气压计");
+                    ui->label_ModeValue->setPalette(fontBlue);
+                    break;
+                case 2:
+                    ui->label_ModeValue->setText("超声+气压计");
+                    ui->label_ModeValue->setPalette(fontYellow);
+                    break;
+                case 3:
+                    ui->label_ModeValue->setText("自动");
+                    ui->label_ModeValue->setPalette(fontGreen);
+                    break;
+                default:
+                    break;
+            }
             tmp =value[1];str.setNum(tmp);ui->label_InterModeValue->setText(str);
-            tmp =value[2];str.setNum(tmp);ui->label_FlyReadyValue->setText(str);
-            tmp =value[3];str.setNum(tmp);ui->label_All_OutValue->setText(str);
-            tmp =value[4];str.setNum(tmp);ui->label_UltraStatusValue->setText(str);
+            tmp =value[2];
+            switch(tmp){
+                case 0:
+                    ui->label_FlyReadyValue->setText("锁定");
+                    ui->label_FlyReadyValue->setPalette(fontRed);
+                    break;
+                case 1:
+                    ui->label_FlyReadyValue->setText("解锁");
+                    ui->label_FlyReadyValue->setPalette(fontGreen);
+                    break;
+                default:
+                    break;
+            }
+            tmp =value[3];
+            switch(tmp){
+                case 1:
+                    ui->label_All_OutValue->setText("正常");
+                    ui->label_All_OutValue->setPalette(fontGreen);
+                    break;
+                case 2:
+                    ui->label_All_OutValue->setText("急停");
+                    ui->label_All_OutValue->setPalette(fontRed);
+                    break;
+                default:
+                    break;
+            }
+            tmp =value[4];
+            switch(tmp){
+                case 0:
+                    ui->label_UltraStatusValue->setText("丢失");
+                    ui->label_UltraStatusValue->setPalette(fontRed);
+                    break;
+                case 1:
+                    ui->label_UltraStatusValue->setText("正常");
+                    ui->label_UltraStatusValue->setPalette(fontGreen);
+                    break;
+                default:
+                    break;
+            }
             break;
         default:
             break;
     }
-    ui->plainTextEdit->insertPlainText("SerialPort cmd receive\n");
+    //ui->plainTextEdit->insertPlainText("SerialPort cmd receive\n");
+    if(ui->plainTextEdit->blockCount() >2000)
+        ui->plainTextEdit->clear();
 }
 
 void MainWindow::on_pushButton_SaveCoef_clicked()
