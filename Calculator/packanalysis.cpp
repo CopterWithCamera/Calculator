@@ -35,20 +35,24 @@ void PackAnalysis::unPack()
                     break;
                 case 3:
                     len +=waitingfifo[len];
+                    len++;
+                    /*
                     if(len == 3)
                     {
                         waitingfifo.remove(0,4);
                         len = 0;
                     }
+                    */
                     break;
                 default:
                     waitingfifo.remove(0,4);
                     len -=4;
+                    value.clear();
                     value.replace(0,len,waitingfifo);
                     waitingfifo.remove(0,len);
+                    if(type ==(char)0xF2)
+                        emit StatusUpdated(type, value);
                     len =0;
-                    emit StatusUpdated(type, value);
-                    value.clear();
                     break;
             }
         }//mutex_Ana.unlock();
