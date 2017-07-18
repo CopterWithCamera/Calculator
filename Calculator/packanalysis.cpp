@@ -15,7 +15,7 @@ void PackAnalysis::ImportData(QByteArray& newData)
 void PackAnalysis::unPack()
 {
     //if(mutex_Ana.tryLock(10)){
-        char type;
+        char type =0;
         QByteArray value;
         while(!waitingfifo.isEmpty() \
               || len <waitingfifo.size()){
@@ -23,7 +23,7 @@ void PackAnalysis::unPack()
             switch (len) {
                 case 0:
                 case 1:
-                    if(waitingfifo[len] ==0xAA){
+                    if(waitingfifo[len] ==(char)0xAA){
                         len++;
                     }else{
                         waitingfifo.remove(0,len+1);
