@@ -96,12 +96,12 @@ SerialPort_bytesWrite(QByteArray sendData)
 
 void SerialPort_Ctl::CallAnalysis()
 {
-    Readport();
-    //if(mutex_Ana.tryLock()){
+    if(mutex_Ana.tryLock()){
+        Readport();
         emit TranstoAna(readBuffer);
         readBuffer.clear();
-        //mutex_Ana.unlock();
-    //}
+        mutex_Ana.unlock();
+    }
 }
 /*
 void SerialPort_Ctl::

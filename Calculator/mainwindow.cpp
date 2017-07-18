@@ -242,7 +242,7 @@ void MainWindow::SerialPort_Closed_SLOT()
 void MainWindow::StatusUpdate(char type, QByteArray value)
 {
     int a =(unsigned char)type;
-    ushort tmp;
+    uchar tmp;
     QString str;
     switch(a){
         case 0xF2:
