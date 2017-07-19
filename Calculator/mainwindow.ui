@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
+    <width>700</width>
     <height>499</height>
    </rect>
   </property>
@@ -241,7 +241,7 @@
      <rect>
       <x>480</x>
       <y>10</y>
-      <width>111</width>
+      <width>211</width>
       <height>461</height>
      </rect>
     </property>
@@ -266,7 +266,7 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>91</width>
+       <width>191</width>
        <height>41</height>
       </rect>
      </property>
@@ -327,7 +327,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>内部模式号：</string>
+      <string>姿态模式：</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_FlyReadyValue">
@@ -374,8 +374,8 @@
     <widget class="QLabel" name="label_All_OutValue">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>260</y>
+       <x>110</x>
+       <y>190</y>
        <width>91</width>
        <height>41</height>
       </rect>
@@ -402,8 +402,8 @@
     <widget class="QLabel" name="label_All_Out">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>240</y>
+       <x>110</x>
+       <y>170</y>
        <width>91</width>
        <height>16</height>
       </rect>
@@ -416,7 +416,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>330</y>
+       <y>260</y>
        <width>91</width>
        <height>41</height>
       </rect>
@@ -444,7 +444,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>309</y>
+       <y>239</y>
        <width>91</width>
        <height>16</height>
       </rect>
@@ -456,8 +456,8 @@
     <widget class="QLabel" name="label_VoltageValue">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>401</y>
+       <x>110</x>
+       <y>261</y>
        <width>91</width>
        <height>41</height>
       </rect>
@@ -484,14 +484,55 @@
     <widget class="QLabel" name="label_Voltage">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>380</y>
+       <x>110</x>
+       <y>240</y>
        <width>91</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
       <string>电压：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HeightModeValue">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>120</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HeightMode">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>100</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>控高模式：</string>
      </property>
     </widget>
    </widget>

@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fontRed.setColor(QPalette::WindowText,Qt::red);
     fontGreen.setColor(QPalette::WindowText,Qt::green);
     fontBlue.setColor(QPalette::WindowText,Qt::blue);
-    fontYellow.setColor(QPalette::WindowText,Qt::yellow);
+    fontYellow.setColor(QPalette::WindowText,Qt::black);
 
     MyCom.moveToThread(&MyComThread);
     MyComThread.start();
@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     MyAna.moveToThread((&MyAnaThread));
     MyAnaThread.start();
+
+    on_pushButton_UpdateSerialPortList_clicked();
 
     connect(&MyCom,SIGNAL(TranstoAna(QByteArray&)),&MyAna,SLOT(ImportData(QByteArray&)));
     connect(&MyAna,SIGNAL(StatusUpdated(char,QByteArray)),this,SLOT(StatusUpdate(char,QByteArray)));
@@ -305,13 +307,13 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
             }
             tmp =value[3];
             switch(tmp){
+                case 0:
+                    ui->label_All_OutValue->setText("急停");
+                    ui->label_All_OutValue->setPalette(fontRed);
+                    break;
                 case 1:
                     ui->label_All_OutValue->setText("正常");
                     ui->label_All_OutValue->setPalette(fontGreen);
-                    break;
-                case 2:
-                    ui->label_All_OutValue->setText("急停");
-                    ui->label_All_OutValue->setPalette(fontRed);
                     break;
                 default:
                     break;
@@ -325,6 +327,23 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                 case 1:
                     ui->label_UltraStatusValue->setText("正常");
                     ui->label_UltraStatusValue->setPalette(fontGreen);
+                    break;
+                default:
+                    break;
+            }
+            tmp =value[5];
+            switch (tmp) {
+                case 0:
+                    ui->label_HeightModeValue->setText("手动");
+                    ui->label_HeightModeValue->setPalette(fontYellow);
+                    break;
+                case 1:
+                    ui->label_HeightModeValue->setText("定高");
+                    ui->label_HeightModeValue->setPalette(fontGreen);
+                    break;
+                case 2:
+                    ui->label_HeightModeValue->setText("降落");
+                    ui->label_HeightModeValue->setPalette(fontBlue);
                     break;
                 default:
                     break;
