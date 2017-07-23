@@ -62,19 +62,44 @@ public:
     QLabel *label_Voltage;
     QLabel *label_HeightModeValue;
     QLabel *label_HeightMode;
+    QLabel *label_Height_2;
+    QLabel *label_HeightValue;
     QFrame *frame_AdjustButton;
     QPushButton *pushButton_Right;
     QPushButton *pushButton_Front;
     QPushButton *pushButton_Left;
     QPushButton *pushButton_Back;
     QPushButton *pushButton_SaveCoef;
+    QPushButton *pushButton_ClearOffset;
     QPushButton *pushButton_SendHeight;
+    QGroupBox *groupBox;
+    QLabel *label_8;
+    QLineEdit *lineEdit_PID1_P;
+    QLabel *label;
+    QLineEdit *lineEdit_PID1_I;
+    QLabel *label_6;
+    QLineEdit *lineEdit_PID3_I;
+    QLineEdit *lineEdit_PID2_D;
+    QLineEdit *lineEdit_PID1_D;
+    QLineEdit *lineEdit_PID2_I;
+    QLabel *label_7;
+    QLineEdit *lineEdit_PID2_P;
+    QLabel *label_9;
+    QLabel *label_5;
+    QLineEdit *lineEdit_PID3_D;
+    QLineEdit *lineEdit_PID3_P;
+    QComboBox *comboBox;
+    QLabel *label_4;
+    QLabel *label_2;
+    QLabel *label_3;
+    QPushButton *pushButton_SendPID;
+    QPushButton *pushButton_ReadPID;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(700, 499);
+        MainWindow->resize(949, 500);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         groupBox_SerialCtl = new QGroupBox(centralWidget);
@@ -135,7 +160,7 @@ public:
         lineEdit_HeightValue->setGeometry(QRect(20, 210, 81, 21));
         groupBox_Status = new QGroupBox(centralWidget);
         groupBox_Status->setObjectName(QStringLiteral("groupBox_Status"));
-        groupBox_Status->setGeometry(QRect(480, 10, 211, 461));
+        groupBox_Status->setGeometry(QRect(470, 10, 211, 441));
         label_Mode = new QLabel(groupBox_Status);
         label_Mode->setObjectName(QStringLiteral("label_Mode"));
         label_Mode->setGeometry(QRect(10, 30, 91, 16));
@@ -191,14 +216,14 @@ public:
         label_UltraStatus->setGeometry(QRect(10, 239, 91, 16));
         label_VoltageValue = new QLabel(groupBox_Status);
         label_VoltageValue->setObjectName(QStringLiteral("label_VoltageValue"));
-        label_VoltageValue->setGeometry(QRect(110, 261, 91, 41));
+        label_VoltageValue->setGeometry(QRect(110, 260, 91, 41));
         label_VoltageValue->setFont(font);
         label_VoltageValue->setFrameShape(QFrame::Panel);
         label_VoltageValue->setFrameShadow(QFrame::Sunken);
         label_VoltageValue->setAlignment(Qt::AlignCenter);
         label_Voltage = new QLabel(groupBox_Status);
         label_Voltage->setObjectName(QStringLiteral("label_Voltage"));
-        label_Voltage->setGeometry(QRect(110, 240, 91, 16));
+        label_Voltage->setGeometry(QRect(110, 239, 91, 16));
         label_HeightModeValue = new QLabel(groupBox_Status);
         label_HeightModeValue->setObjectName(QStringLiteral("label_HeightModeValue"));
         label_HeightModeValue->setGeometry(QRect(110, 120, 91, 41));
@@ -209,6 +234,16 @@ public:
         label_HeightMode = new QLabel(groupBox_Status);
         label_HeightMode->setObjectName(QStringLiteral("label_HeightMode"));
         label_HeightMode->setGeometry(QRect(110, 100, 91, 16));
+        label_Height_2 = new QLabel(groupBox_Status);
+        label_Height_2->setObjectName(QStringLiteral("label_Height_2"));
+        label_Height_2->setGeometry(QRect(10, 309, 91, 16));
+        label_HeightValue = new QLabel(groupBox_Status);
+        label_HeightValue->setObjectName(QStringLiteral("label_HeightValue"));
+        label_HeightValue->setGeometry(QRect(10, 330, 91, 41));
+        label_HeightValue->setFont(font);
+        label_HeightValue->setFrameShape(QFrame::Panel);
+        label_HeightValue->setFrameShadow(QFrame::Sunken);
+        label_HeightValue->setAlignment(Qt::AlignCenter);
         frame_AdjustButton = new QFrame(centralWidget);
         frame_AdjustButton->setObjectName(QStringLiteral("frame_AdjustButton"));
         frame_AdjustButton->setGeometry(QRect(160, 310, 301, 161));
@@ -229,9 +264,78 @@ public:
         pushButton_SaveCoef = new QPushButton(frame_AdjustButton);
         pushButton_SaveCoef->setObjectName(QStringLiteral("pushButton_SaveCoef"));
         pushButton_SaveCoef->setGeometry(QRect(200, 120, 81, 31));
+        pushButton_ClearOffset = new QPushButton(frame_AdjustButton);
+        pushButton_ClearOffset->setObjectName(QStringLiteral("pushButton_ClearOffset"));
+        pushButton_ClearOffset->setGeometry(QRect(100, 50, 93, 28));
         pushButton_SendHeight = new QPushButton(centralWidget);
         pushButton_SendHeight->setObjectName(QStringLiteral("pushButton_SendHeight"));
         pushButton_SendHeight->setGeometry(QRect(20, 280, 81, 28));
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(690, 10, 251, 211));
+        label_8 = new QLabel(groupBox);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setGeometry(QRect(170, 60, 61, 16));
+        lineEdit_PID1_P = new QLineEdit(groupBox);
+        lineEdit_PID1_P->setObjectName(QStringLiteral("lineEdit_PID1_P"));
+        lineEdit_PID1_P->setGeometry(QRect(10, 80, 71, 21));
+        label = new QLabel(groupBox);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 60, 61, 16));
+        lineEdit_PID1_I = new QLineEdit(groupBox);
+        lineEdit_PID1_I->setObjectName(QStringLiteral("lineEdit_PID1_I"));
+        lineEdit_PID1_I->setGeometry(QRect(90, 80, 71, 21));
+        label_6 = new QLabel(groupBox);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(90, 160, 61, 16));
+        lineEdit_PID3_I = new QLineEdit(groupBox);
+        lineEdit_PID3_I->setObjectName(QStringLiteral("lineEdit_PID3_I"));
+        lineEdit_PID3_I->setGeometry(QRect(90, 180, 71, 21));
+        lineEdit_PID2_D = new QLineEdit(groupBox);
+        lineEdit_PID2_D->setObjectName(QStringLiteral("lineEdit_PID2_D"));
+        lineEdit_PID2_D->setGeometry(QRect(170, 130, 71, 21));
+        lineEdit_PID1_D = new QLineEdit(groupBox);
+        lineEdit_PID1_D->setObjectName(QStringLiteral("lineEdit_PID1_D"));
+        lineEdit_PID1_D->setGeometry(QRect(170, 80, 71, 21));
+        lineEdit_PID2_I = new QLineEdit(groupBox);
+        lineEdit_PID2_I->setObjectName(QStringLiteral("lineEdit_PID2_I"));
+        lineEdit_PID2_I->setGeometry(QRect(90, 130, 71, 21));
+        label_7 = new QLabel(groupBox);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(170, 110, 61, 16));
+        lineEdit_PID2_P = new QLineEdit(groupBox);
+        lineEdit_PID2_P->setObjectName(QStringLiteral("lineEdit_PID2_P"));
+        lineEdit_PID2_P->setGeometry(QRect(10, 130, 71, 21));
+        label_9 = new QLabel(groupBox);
+        label_9->setObjectName(QStringLiteral("label_9"));
+        label_9->setGeometry(QRect(170, 160, 61, 16));
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(90, 60, 61, 16));
+        lineEdit_PID3_D = new QLineEdit(groupBox);
+        lineEdit_PID3_D->setObjectName(QStringLiteral("lineEdit_PID3_D"));
+        lineEdit_PID3_D->setGeometry(QRect(170, 180, 71, 21));
+        lineEdit_PID3_P = new QLineEdit(groupBox);
+        lineEdit_PID3_P->setObjectName(QStringLiteral("lineEdit_PID3_P"));
+        lineEdit_PID3_P->setGeometry(QRect(10, 180, 71, 21));
+        comboBox = new QComboBox(groupBox);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(10, 20, 87, 22));
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(90, 110, 61, 16));
+        label_2 = new QLabel(groupBox);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(10, 110, 61, 16));
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(10, 160, 61, 16));
+        pushButton_SendPID = new QPushButton(groupBox);
+        pushButton_SendPID->setObjectName(QStringLiteral("pushButton_SendPID"));
+        pushButton_SendPID->setGeometry(QRect(100, 20, 71, 22));
+        pushButton_ReadPID = new QPushButton(groupBox);
+        pushButton_ReadPID->setObjectName(QStringLiteral("pushButton_ReadPID"));
+        pushButton_ReadPID->setGeometry(QRect(170, 20, 71, 22));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -276,12 +380,36 @@ public:
         label_Voltage->setText(QApplication::translate("MainWindow", "\347\224\265\345\216\213\357\274\232", Q_NULLPTR));
         label_HeightModeValue->setText(QString());
         label_HeightMode->setText(QApplication::translate("MainWindow", "\346\216\247\351\253\230\346\250\241\345\274\217\357\274\232", Q_NULLPTR));
+        label_Height_2->setText(QApplication::translate("MainWindow", "\351\253\230\345\272\246\357\274\232", Q_NULLPTR));
+        label_HeightValue->setText(QString());
         pushButton_Right->setText(QApplication::translate("MainWindow", "\345\217\263", Q_NULLPTR));
         pushButton_Front->setText(QApplication::translate("MainWindow", "\345\211\215", Q_NULLPTR));
         pushButton_Left->setText(QApplication::translate("MainWindow", "\345\267\246", Q_NULLPTR));
         pushButton_Back->setText(QApplication::translate("MainWindow", "\345\220\216", Q_NULLPTR));
         pushButton_SaveCoef->setText(QApplication::translate("MainWindow", "\345\255\230\345\202\250", Q_NULLPTR));
+        pushButton_ClearOffset->setText(QApplication::translate("MainWindow", "\346\270\205\351\233\266", Q_NULLPTR));
         pushButton_SendHeight->setText(QApplication::translate("MainWindow", "Send", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("MainWindow", "PID Adjust", Q_NULLPTR));
+        label_8->setText(QApplication::translate("MainWindow", "PID1.D", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "PID1.P", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindow", "PID3.I", Q_NULLPTR));
+        label_7->setText(QApplication::translate("MainWindow", "PID2.D", Q_NULLPTR));
+        label_9->setText(QApplication::translate("MainWindow", "PID3.D", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "PID1.I", Q_NULLPTR));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "1", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "4", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "7", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "10", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "13", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "16", Q_NULLPTR)
+        );
+        label_4->setText(QApplication::translate("MainWindow", "PID2.I", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "PID2.P", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "PID3.P", Q_NULLPTR));
+        pushButton_SendPID->setText(QApplication::translate("MainWindow", "Send", Q_NULLPTR));
+        pushButton_ReadPID->setText(QApplication::translate("MainWindow", "Read", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent), Height(0),
+    QMainWindow(parent), Height(0),PID_func(0x10),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -18,10 +18,21 @@ MainWindow::MainWindow(QWidget *parent) :
     MyCom.moveToThread(&MyComThread);
     MyComThread.start();
 
-    connect(this, &MainWindow::Open_SerialPort,&MyCom,&SerialPort_Ctl::SerialPort_Open);
+    connect(this,&MainWindow::Open_SerialPort,&MyCom,&SerialPort_Ctl::SerialPort_Open);
     connect(this,&MainWindow::Close_SerialPort,&MyCom,&SerialPort_Ctl::SerialPort_Close);
     connect(this,&MainWindow::SendCmd,&MyCom,&SerialPort_Ctl::SerialPort_bytesWrite);
+    connect(&MyCom,SIGNAL(SerialPort_Opened()),this,SLOT(SerialPort_Opened_SLOT()));
+    connect(&MyCom,SIGNAL(SerialPort_Written()),this,SLOT(SerialPort_Written_SLOT()));
     connect(&MyCom,SIGNAL(SerialPort_Closed()),this,SLOT(SerialPort_Closed_SLOT()));
+
+    MyCom2.moveToThread(&MyComThread2);
+    MyComThread2.start();
+    connect(this,&MainWindow::Open_SerialPort2,&MyCom2,&SerialPort_Ctl::SerialPort_Open);
+    connect(this,&MainWindow::Close_SerialPort2,&MyCom2,&SerialPort_Ctl::SerialPort_Close);
+    connect(this,&MainWindow::TransCmd,&MyCom2,&SerialPort_Ctl::SerialPort_bytesWrite);
+    connect(&MyCom2,SIGNAL(SerialPort_Opened()),this,SLOT(SerialPort_Opened_SLOT()));
+    connect(&MyCom2,SIGNAL(SerialPort_Written()),this,SLOT(SerialPort_Written_SLOT()));
+    connect(&MyCom2,SIGNAL(SerialPort_Closed()),this,SLOT(SerialPort_Closed_SLOT()));
 
     MyAna.moveToThread((&MyAnaThread));
     MyAnaThread.start();
@@ -40,6 +51,9 @@ MainWindow::~MainWindow()
 
     MyComThread.quit();
     MyComThread.wait();
+
+    MyComThread2.quit();
+    MyComThread2.wait();
 
     MyAnaThread.quit();
     MyAnaThread.wait();
@@ -137,109 +151,41 @@ void MainWindow::on_checkBox_SerialPortOpen_clicked()
         QString portName =ui->comboBox_SerialPortList->currentText();
         int baud =ui->comboBox_SerialPortBaud->currentText().toInt();
         emit Open_SerialPort(portName,baud);
-
-        ui->plainTextEdit->insertPlainText("SerialPort Opened!\n");
     }else{
         emit Close_SerialPort();
-
-        //ui->plainTextEdit->insertPlainText("SerialPort Closed!\n");
     }
 }
 
-void MainWindow::on_pushButton_Lock_clicked()
+void MainWindow::on_pushButton_UpdateSerialPortList_2_clicked()
 {
-    char LockCmdBuffer[6];
-    LockCmdBuffer[0] =0xAA;
-    LockCmdBuffer[1] =0xAF;
-    LockCmdBuffer[2] =0x40;
-    LockCmdBuffer[3] =1;
-    LockCmdBuffer[4] =0x01;
-    LockCmdBuffer[5] =SumVerify((uchar*)LockCmdBuffer,5);
-    QByteArray LockCmd(LockCmdBuffer,6);
+    QList<QSerialPortInfo> availableList =QSerialPortInfo::availablePorts();
+    QStringList portList;
 
-    emit SendCmd(LockCmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+    ui->comboBox_SerialPortList_2->clear();
+    if(availableList.isEmpty()){
+        ui->comboBox_SerialPortList_2->addItem("None");
+    }else{
+        foreach (QSerialPortInfo info, availableList) {
+            portList<< info.portName();
+        }
+        ui->comboBox_SerialPortList_2->addItems(portList);
+    }
 }
 
-void MainWindow::on_pushButton_UnLock_clicked()
+void MainWindow::on_checkBox_SerialPortOpen_2_clicked()
 {
-    char UnLockCmdBuffer[6];
-    UnLockCmdBuffer[0] =0xAA;
-    UnLockCmdBuffer[1] =0xAF;
-    UnLockCmdBuffer[2] =0x40;
-    UnLockCmdBuffer[3] =1;
-    UnLockCmdBuffer[4] =0x02;
-    UnLockCmdBuffer[5] =SumVerify((uchar*)UnLockCmdBuffer,5);
-    QByteArray UnLockCmd(UnLockCmdBuffer,6);
-
-    emit SendCmd(UnLockCmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+    if(ui->checkBox_SerialPortOpen_2->isChecked()){
+        QString portName =ui->comboBox_SerialPortList_2->currentText();
+        int baud =ui->comboBox_SerialPortBaud_2->currentText().toInt();
+        emit Open_SerialPort2(portName,baud);
+    }else{
+        emit Close_SerialPort2();
+    }
 }
 
-void MainWindow::on_pushButton_SendHeight_clicked()
+void MainWindow::SerialPort_Opened_SLOT()
 {
-    Height =ui->lineEdit_HeightValue->text().toInt();
-
-    char HeightCmdBuffer[6];
-    HeightCmdBuffer[0] =0xAA;
-    HeightCmdBuffer[1] =0xAF;
-    HeightCmdBuffer[2] =0x42;
-    HeightCmdBuffer[3] =1;
-    HeightCmdBuffer[4] =Height;
-    HeightCmdBuffer[5] =SumVerify((uchar*)HeightCmdBuffer,5);
-    QByteArray HeightCmd(HeightCmdBuffer,6);
-    emit SendCmd(HeightCmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
-}
-
-void MainWindow::on_pushButton_incHeight_clicked()
-{
-    char IncHeightCmdBuffer[6];
-    IncHeightCmdBuffer[0] =0xAA;
-    IncHeightCmdBuffer[1] =0xAF;
-    IncHeightCmdBuffer[2] =0x42;
-    IncHeightCmdBuffer[3] =1;
-    Height += 1;
-    IncHeightCmdBuffer[4] =Height;
-    IncHeightCmdBuffer[5] =SumVerify((uchar*)IncHeightCmdBuffer,5);
-    QByteArray IncHeightCmd(IncHeightCmdBuffer,6);
-    ui->lineEdit_HeightValue->setText(QString::number(Height));
-
-    emit SendCmd(IncHeightCmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
-}
-
-void MainWindow::on_pushButton_decHeight_clicked()
-{
-    char DecHeightCmdBuffer[6];
-    DecHeightCmdBuffer[0] =0xAA;
-    DecHeightCmdBuffer[1] =0xAF;
-    DecHeightCmdBuffer[2] =0x42;
-    DecHeightCmdBuffer[3] =1;
-    Height -= 1;
-    DecHeightCmdBuffer[4] =Height;
-    DecHeightCmdBuffer[5] =SumVerify((uchar*)DecHeightCmdBuffer,5);
-    QByteArray DecHeightCmd(DecHeightCmdBuffer,6);
-    ui->lineEdit_HeightValue->setText(QString::number(Height));
-
-    emit SendCmd(DecHeightCmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
-}
-
-
-
-void MainWindow::on_pushButton_SerialPortSend_clicked()
-{
-    QString CmdBuffer;
-    CmdBuffer =ui->lineEdit_SerialPortOutput->text();
-
-    QByteArray Cmd =StringToHex(CmdBuffer);
-    emit SendCmd(Cmd);
+    ui->plainTextEdit->insertPlainText("SerialPort Opened\n");
 }
 
 void MainWindow::SerialPort_Closed_SLOT()
@@ -247,10 +193,19 @@ void MainWindow::SerialPort_Closed_SLOT()
     ui->plainTextEdit->insertPlainText("SerialPort Closed\n");
 }
 
+void MainWindow::SerialPort_Written_SLOT()
+{
+    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+}
+
 void MainWindow::StatusUpdate(char type, QByteArray value)
 {
-    int a =(unsigned char)type;
+    int a =(unsigned char)type, len, i;
+    float fps;
+    ushort PID_ReadBuffer[9];
     QString str;
+    QByteArray Cmd;
+    char *CmdBuffer;
     switch(a){
 
         case 0x05:
@@ -259,14 +214,149 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
             voltage =value[0];
             voltage *=256;
             voltage +=(uchar)value[1];
-            fvoltage = voltage/100.0;
+            fvoltage =voltage/100.0;
             str.setNum(fvoltage);ui->label_VoltageValue->setText(str);
             if(voltage >=1100)
                 ui->label_VoltageValue->setPalette(fontGreen);
             else
                 ui->label_VoltageValue->setPalette(fontRed);
             break;
+        case 0x07:
+            ushort height;
+            float fheight;
+            height =(uchar)value[4];
+            height *=256;
+            height +=(uchar)value[5];
+            fheight =height/100.0;
+            str.setNum(fheight);ui->label_HeightValue->setText(str);
+            if(height <=15000)
+                ui->label_HeightValue->setPalette(fontGreen);
+            else
+                ui->label_HeightValue->setPalette(fontRed);
+            break;
+        case 0x10:
+            for(i =0;i <9; i++){
+                PID_ReadBuffer[i] =(uchar)value[i*2 +0];
+                PID_ReadBuffer[i] *=256;
+                PID_ReadBuffer[i] +=(uchar)value[i*2 +1];
+            }
+            if(PID_func ==0x10){
+                str.setNum(PID_ReadBuffer[0]);ui->lineEdit_PID1_P->setText(str);
+                str.setNum(PID_ReadBuffer[1]);ui->lineEdit_PID1_I->setText(str);
+                str.setNum(PID_ReadBuffer[2]);ui->lineEdit_PID1_D->setText(str);
+                str.setNum(PID_ReadBuffer[3]);ui->lineEdit_PID2_P->setText(str);
+                str.setNum(PID_ReadBuffer[4]);ui->lineEdit_PID2_I->setText(str);
+                str.setNum(PID_ReadBuffer[5]);ui->lineEdit_PID2_D->setText(str);
+                str.setNum(PID_ReadBuffer[6]);ui->lineEdit_PID3_P->setText(str);
+                str.setNum(PID_ReadBuffer[7]);ui->lineEdit_PID3_I->setText(str);
+                str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
+            }
+            break;
+        case 0x11:
+            for(i =0;i <9; i++){
+                PID_ReadBuffer[i] =(uchar)value[i*2 +0];
+                PID_ReadBuffer[i] *=256;
+                PID_ReadBuffer[i] +=(uchar)value[i*2 +1];
+            }
+            if(PID_func ==0x11){
+                str.setNum(PID_ReadBuffer[0]);ui->lineEdit_PID1_P->setText(str);
+                str.setNum(PID_ReadBuffer[1]);ui->lineEdit_PID1_I->setText(str);
+                str.setNum(PID_ReadBuffer[2]);ui->lineEdit_PID1_D->setText(str);
+                str.setNum(PID_ReadBuffer[3]);ui->lineEdit_PID2_P->setText(str);
+                str.setNum(PID_ReadBuffer[4]);ui->lineEdit_PID2_I->setText(str);
+                str.setNum(PID_ReadBuffer[5]);ui->lineEdit_PID2_D->setText(str);
+                str.setNum(PID_ReadBuffer[6]);ui->lineEdit_PID3_P->setText(str);
+                str.setNum(PID_ReadBuffer[7]);ui->lineEdit_PID3_I->setText(str);
+                str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
+            }
+            break;
+        case 0x12:
+            for(i =0;i <9; i++){
+                PID_ReadBuffer[i] =(uchar)value[i*2 +0];
+                PID_ReadBuffer[i] *=256;
+                PID_ReadBuffer[i] +=(uchar)value[i*2 +1];
+            }
+            if(PID_func ==0x12){
+                str.setNum(PID_ReadBuffer[0]);ui->lineEdit_PID1_P->setText(str);
+                str.setNum(PID_ReadBuffer[1]);ui->lineEdit_PID1_I->setText(str);
+                str.setNum(PID_ReadBuffer[2]);ui->lineEdit_PID1_D->setText(str);
+                str.setNum(PID_ReadBuffer[3]);ui->lineEdit_PID2_P->setText(str);
+                str.setNum(PID_ReadBuffer[4]);ui->lineEdit_PID2_I->setText(str);
+                str.setNum(PID_ReadBuffer[5]);ui->lineEdit_PID2_D->setText(str);
+                str.setNum(PID_ReadBuffer[6]);ui->lineEdit_PID3_P->setText(str);
+                str.setNum(PID_ReadBuffer[7]);ui->lineEdit_PID3_I->setText(str);
+                str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
+            }
+            break;
+        case 0x13:
+            for(i =0;i <9; i++){
+                PID_ReadBuffer[i] =(uchar)value[i*2 +0];
+                PID_ReadBuffer[i] *=256;
+                PID_ReadBuffer[i] +=(uchar)value[i*2 +1];
+            }
+            if(PID_func ==0x13){
+                str.setNum(PID_ReadBuffer[0]);ui->lineEdit_PID1_P->setText(str);
+                str.setNum(PID_ReadBuffer[1]);ui->lineEdit_PID1_I->setText(str);
+                str.setNum(PID_ReadBuffer[2]);ui->lineEdit_PID1_D->setText(str);
+                str.setNum(PID_ReadBuffer[3]);ui->lineEdit_PID2_P->setText(str);
+                str.setNum(PID_ReadBuffer[4]);ui->lineEdit_PID2_I->setText(str);
+                str.setNum(PID_ReadBuffer[5]);ui->lineEdit_PID2_D->setText(str);
+                str.setNum(PID_ReadBuffer[6]);ui->lineEdit_PID3_P->setText(str);
+                str.setNum(PID_ReadBuffer[7]);ui->lineEdit_PID3_I->setText(str);
+                str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
+            }
+            break;
+        case 0x14:
+            for(i =0;i <9; i++){
+                PID_ReadBuffer[i] =(uchar)value[i*2 +0];
+                PID_ReadBuffer[i] *=256;
+                PID_ReadBuffer[i] +=(uchar)value[i*2 +1];
+            }
+            if(PID_func ==0x14){
+                str.setNum(PID_ReadBuffer[0]);ui->lineEdit_PID1_P->setText(str);
+                str.setNum(PID_ReadBuffer[1]);ui->lineEdit_PID1_I->setText(str);
+                str.setNum(PID_ReadBuffer[2]);ui->lineEdit_PID1_D->setText(str);
+                str.setNum(PID_ReadBuffer[3]);ui->lineEdit_PID2_P->setText(str);
+                str.setNum(PID_ReadBuffer[4]);ui->lineEdit_PID2_I->setText(str);
+                str.setNum(PID_ReadBuffer[5]);ui->lineEdit_PID2_D->setText(str);
+                str.setNum(PID_ReadBuffer[6]);ui->lineEdit_PID3_P->setText(str);
+                str.setNum(PID_ReadBuffer[7]);ui->lineEdit_PID3_I->setText(str);
+                str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
+            }
+            break;
+        case 0x15:
+            for(i =0;i <9; i++){
+                PID_ReadBuffer[i] =(uchar)value[i*2 +0];
+                PID_ReadBuffer[i] *=256;
+                PID_ReadBuffer[i] +=(uchar)value[i*2 +1];
+            }
+            if(PID_func ==0x15){
+                str.setNum(PID_ReadBuffer[0]);ui->lineEdit_PID1_P->setText(str);
+                str.setNum(PID_ReadBuffer[1]);ui->lineEdit_PID1_I->setText(str);
+                str.setNum(PID_ReadBuffer[2]);ui->lineEdit_PID1_D->setText(str);
+                str.setNum(PID_ReadBuffer[3]);ui->lineEdit_PID2_P->setText(str);
+                str.setNum(PID_ReadBuffer[4]);ui->lineEdit_PID2_I->setText(str);
+                str.setNum(PID_ReadBuffer[5]);ui->lineEdit_PID2_D->setText(str);
+                str.setNum(PID_ReadBuffer[6]);ui->lineEdit_PID3_P->setText(str);
+                str.setNum(PID_ReadBuffer[7]);ui->lineEdit_PID3_I->setText(str);
+                str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
+            }
+            break;
+        case 0xF1:
+            len =value.size() +5;
+            CmdBuffer = new char[len];
+            *(CmdBuffer+0) =0xAA;
+            *(CmdBuffer+1) =0xAA;
+            *(CmdBuffer+2) =0xF1;
+            *(CmdBuffer+3) =len-5;
+            for(int i =4; i<len-1; i++)
+                *(CmdBuffer+i) =value[i-4];
 
+            CmdBuffer[len-1] =SumVerify((uchar*)CmdBuffer,len-1);
+            Cmd =QByteArray(CmdBuffer,len);
+
+            emit SendCmd(Cmd);
+            break;
         case 0xF2:
             uchar tmp;
 
@@ -348,6 +438,13 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                 default:
                     break;
             }
+            tmp =value[6];
+            fps =tmp/10.0;
+            str.setNum(fps);ui->label_FpsValue->setText(str);
+            if(fps >=9)
+                ui->label_FpsValue->setPalette(fontGreen);
+            else
+                ui->label_FpsValue->setPalette(fontRed);
             break;
         default:
             break;
@@ -357,19 +454,88 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
         ui->plainTextEdit->clear();
 }
 
-void MainWindow::on_pushButton_SaveCoef_clicked()
+void MainWindow::on_pushButton_SerialPortSend_clicked()
 {
-    char CmdBuffer[6];
-    CmdBuffer[0] =0xAA;
-    CmdBuffer[1] =0xAF;
-    CmdBuffer[2] =0x41;
-    CmdBuffer[3] =1;
-    CmdBuffer[4] =0x05;
-    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
-    QByteArray Cmd(CmdBuffer,6);
-    emit SendCmd(Cmd);
+    QString CmdBuffer;
+    CmdBuffer =ui->lineEdit_SerialPortOutput->text();
 
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+    QByteArray Cmd =StringToHex(CmdBuffer);
+    emit SendCmd(Cmd);
+}
+
+void MainWindow::on_pushButton_Lock_clicked()
+{
+    char LockCmdBuffer[6];
+    LockCmdBuffer[0] =0xAA;
+    LockCmdBuffer[1] =0xAF;
+    LockCmdBuffer[2] =0x40;
+    LockCmdBuffer[3] =1;
+    LockCmdBuffer[4] =0x01;
+    LockCmdBuffer[5] =SumVerify((uchar*)LockCmdBuffer,5);
+    QByteArray LockCmd(LockCmdBuffer,6);
+
+    emit SendCmd(LockCmd);
+}
+
+void MainWindow::on_pushButton_UnLock_clicked()
+{
+    char UnLockCmdBuffer[6];
+    UnLockCmdBuffer[0] =0xAA;
+    UnLockCmdBuffer[1] =0xAF;
+    UnLockCmdBuffer[2] =0x40;
+    UnLockCmdBuffer[3] =1;
+    UnLockCmdBuffer[4] =0x02;
+    UnLockCmdBuffer[5] =SumVerify((uchar*)UnLockCmdBuffer,5);
+    QByteArray UnLockCmd(UnLockCmdBuffer,6);
+
+    emit SendCmd(UnLockCmd);
+}
+
+void MainWindow::on_pushButton_SendHeight_clicked()
+{
+    Height =ui->lineEdit_HeightValue->text().toInt();
+
+    char HeightCmdBuffer[6];
+    HeightCmdBuffer[0] =0xAA;
+    HeightCmdBuffer[1] =0xAF;
+    HeightCmdBuffer[2] =0x42;
+    HeightCmdBuffer[3] =1;
+    HeightCmdBuffer[4] =Height;
+    HeightCmdBuffer[5] =SumVerify((uchar*)HeightCmdBuffer,5);
+    QByteArray HeightCmd(HeightCmdBuffer,6);
+    emit SendCmd(HeightCmd);
+}
+
+void MainWindow::on_pushButton_incHeight_clicked()
+{
+    char IncHeightCmdBuffer[6];
+    IncHeightCmdBuffer[0] =0xAA;
+    IncHeightCmdBuffer[1] =0xAF;
+    IncHeightCmdBuffer[2] =0x42;
+    IncHeightCmdBuffer[3] =1;
+    Height += 1;
+    IncHeightCmdBuffer[4] =Height;
+    IncHeightCmdBuffer[5] =SumVerify((uchar*)IncHeightCmdBuffer,5);
+    QByteArray IncHeightCmd(IncHeightCmdBuffer,6);
+    ui->lineEdit_HeightValue->setText(QString::number(Height));
+
+    emit SendCmd(IncHeightCmd);
+}
+
+void MainWindow::on_pushButton_decHeight_clicked()
+{
+    char DecHeightCmdBuffer[6];
+    DecHeightCmdBuffer[0] =0xAA;
+    DecHeightCmdBuffer[1] =0xAF;
+    DecHeightCmdBuffer[2] =0x42;
+    DecHeightCmdBuffer[3] =1;
+    Height -= 1;
+    DecHeightCmdBuffer[4] =Height;
+    DecHeightCmdBuffer[5] =SumVerify((uchar*)DecHeightCmdBuffer,5);
+    QByteArray DecHeightCmd(DecHeightCmdBuffer,6);
+    ui->lineEdit_HeightValue->setText(QString::number(Height));
+
+    emit SendCmd(DecHeightCmd);
 }
 
 void MainWindow::on_pushButton_Front_clicked()
@@ -383,8 +549,6 @@ void MainWindow::on_pushButton_Front_clicked()
     CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
     QByteArray Cmd(CmdBuffer,6);
     emit SendCmd(Cmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
 }
 
 void MainWindow::on_pushButton_Back_clicked()
@@ -398,8 +562,6 @@ void MainWindow::on_pushButton_Back_clicked()
     CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
     QByteArray Cmd(CmdBuffer,6);
     emit SendCmd(Cmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
 }
 
 void MainWindow::on_pushButton_Left_clicked()
@@ -413,8 +575,6 @@ void MainWindow::on_pushButton_Left_clicked()
     CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
     QByteArray Cmd(CmdBuffer,6);
     emit SendCmd(Cmd);
-
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
 }
 
 void MainWindow::on_pushButton_Right_clicked()
@@ -428,6 +588,102 @@ void MainWindow::on_pushButton_Right_clicked()
     CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
     QByteArray Cmd(CmdBuffer,6);
     emit SendCmd(Cmd);
+}
 
-    ui->plainTextEdit->insertPlainText("SerialPort cmd send\n");
+void MainWindow::on_pushButton_SaveCoef_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x05;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
+
+void MainWindow::on_pushButton_ClearOffset_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x41;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x06;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
+
+void MainWindow::on_pushButton_SendPID_clicked()
+{
+    QString str; ushort PID_Buffer[9];
+
+    str =ui->lineEdit_PID1_P->text();PID_Buffer[0] =str.toShort();
+    str =ui->lineEdit_PID1_I->text();PID_Buffer[1] =str.toShort();
+    str =ui->lineEdit_PID1_D->text();PID_Buffer[2] =str.toShort();
+    str =ui->lineEdit_PID2_P->text();PID_Buffer[3] =str.toShort();
+    str =ui->lineEdit_PID2_I->text();PID_Buffer[4] =str.toShort();
+    str =ui->lineEdit_PID2_D->text();PID_Buffer[5] =str.toShort();
+    str =ui->lineEdit_PID3_P->text();PID_Buffer[6] =str.toShort();
+    str =ui->lineEdit_PID3_I->text();PID_Buffer[7] =str.toShort();
+    str =ui->lineEdit_PID3_D->text();PID_Buffer[8] =str.toShort();
+
+    char CmdBuffer[23];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =PID_func;
+    CmdBuffer[3] =18;
+
+    int i;
+    for(i =0; i<9; i++){
+        CmdBuffer[i*2+1+4] =((ushort)PID_Buffer[i])%256;
+        CmdBuffer[i*2+4] =((ushort)PID_Buffer[i])/256;
+    }
+    CmdBuffer[22] =SumVerify((uchar*)CmdBuffer,22);
+    QByteArray Cmd(CmdBuffer,23);
+    emit SendCmd(Cmd);
+}
+
+void MainWindow::on_pushButton_ReadPID_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x02;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x01;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
+
+
+
+void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    int index =arg1.toInt();
+    switch (index) {
+    case 1:
+        PID_func =0x10;
+        break;
+    case 4:
+        PID_func =0x11;
+        break;
+    case 7:
+        PID_func =0x12;
+        break;
+    case 10:
+        PID_func =0x13;
+        break;
+    case 13:
+        PID_func =0x14;
+        break;
+    case 16:
+        PID_func =0x15;
+        break;
+    default:
+        break;
+    }
 }

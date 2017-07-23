@@ -11,13 +11,13 @@ MAKEFILE      = Makefile.Debug
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -DQT_DEPRECATED_WARNINGS -DQT_DLL -DQWT_DLL -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -pipe -g -Wextra -Wall -W $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -pipe -g -std=gnu++11 -Wextra -Wall -W -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\Calculator -I. -IC:\Qt\5.9.1\mingw53_32\include -IC:\Qt\5.9.1\mingw53_32\include\QtWidgets -IC:\Qt\5.9.1\mingw53_32\include\QtGui -IC:\Qt\5.9.1\mingw53_32\include\QtANGLE -IC:\Qt\5.9.1\mingw53_32\include\QtSerialPort -IC:\Qt\5.9.1\mingw53_32\include\QtCore -Idebug -I. -IC:\Qt\5.9.1\mingw53_32\mkspecs\win32-g++ 
+INCPATH       = -I..\Calculator -I. -IC:\Qt\5.9.1\mingw53_32\include\QWT -IC:\Qt\5.9.1\mingw53_32\include -IC:\Qt\5.9.1\mingw53_32\include\QtWidgets -IC:\Qt\5.9.1\mingw53_32\include\QtGui -IC:\Qt\5.9.1\mingw53_32\include\QtANGLE -IC:\Qt\5.9.1\mingw53_32\include\QtSerialPort -IC:\Qt\5.9.1\mingw53_32\include\QtCore -Idebug -I. -IC:\Qt\5.9.1\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LC:\Qt\5.9.1\mingw53_32\lib C:\Qt\5.9.1\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 C:\Qt\5.9.1\mingw53_32\lib\libQt5Widgetsd.a C:\Qt\5.9.1\mingw53_32\lib\libQt5Guid.a C:\Qt\5.9.1\mingw53_32\lib\libQt5SerialPortd.a C:\Qt\5.9.1\mingw53_32\lib\libQt5Cored.a 
+LIBS        =        -lmingw32 -LC:\Qt\5.9.1\mingw53_32\lib C:\Qt\5.9.1\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 -LC:\Qt\5.9.1\mingw53_32\lib -lqwtd -lqwt C:\Qt\5.9.1\mingw53_32\lib\libQt5Widgetsd.a C:\Qt\5.9.1\mingw53_32\lib\libQt5Guid.a C:\Qt\5.9.1\mingw53_32\lib\libQt5SerialPortd.a C:\Qt\5.9.1\mingw53_32\lib\libQt5Cored.a 
 QMAKE         = C:\Qt\5.9.1\mingw53_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -229,8 +229,10 @@ debug/moc_mainwindow.cpp: C:/Qt/5.9.1/mingw53_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.9.1/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QThread \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qthread.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtGui/QPalette \
 		../Calculator/main.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
 		../Calculator/serialport_ctl.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QString \
@@ -239,7 +241,7 @@ debug/moc_mainwindow.cpp: C:/Qt/5.9.1/mingw53_32/include/QtWidgets/QMainWindow \
 		../Calculator/mainwindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.9.1/mingw53_32/bin/moc.exe
-	C:\Qt\5.9.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++ -IE:/GitHub/Calculator/Calculator -IC:/Qt/5.9.1/mingw53_32/include -IC:/Qt/5.9.1/mingw53_32/include/QtWidgets -IC:/Qt/5.9.1/mingw53_32/include/QtGui -IC:/Qt/5.9.1/mingw53_32/include/QtANGLE -IC:/Qt/5.9.1/mingw53_32/include/QtSerialPort -IC:/Qt/5.9.1/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Calculator\mainwindow.h -o debug\moc_mainwindow.cpp
+	C:\Qt\5.9.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++ -IE:/GitHub/Calculator/Calculator -IC:/Qt/5.9.1/mingw53_32/include/QWT -IC:/Qt/5.9.1/mingw53_32/include -IC:/Qt/5.9.1/mingw53_32/include/QtWidgets -IC:/Qt/5.9.1/mingw53_32/include/QtGui -IC:/Qt/5.9.1/mingw53_32/include/QtANGLE -IC:/Qt/5.9.1/mingw53_32/include/QtSerialPort -IC:/Qt/5.9.1/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Calculator\mainwindow.h -o debug\moc_mainwindow.cpp
 
 debug/moc_serialport_ctl.cpp: C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qobject.h \
@@ -298,10 +300,24 @@ debug/moc_serialport_ctl.cpp: C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		../Calculator/main.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qhash.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qshareddata.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvector.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qpoint.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		../Calculator/serialport_ctl.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.9.1/mingw53_32/bin/moc.exe
-	C:\Qt\5.9.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++ -IE:/GitHub/Calculator/Calculator -IC:/Qt/5.9.1/mingw53_32/include -IC:/Qt/5.9.1/mingw53_32/include/QtWidgets -IC:/Qt/5.9.1/mingw53_32/include/QtGui -IC:/Qt/5.9.1/mingw53_32/include/QtANGLE -IC:/Qt/5.9.1/mingw53_32/include/QtSerialPort -IC:/Qt/5.9.1/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Calculator\serialport_ctl.h -o debug\moc_serialport_ctl.cpp
+	C:\Qt\5.9.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++ -IE:/GitHub/Calculator/Calculator -IC:/Qt/5.9.1/mingw53_32/include/QWT -IC:/Qt/5.9.1/mingw53_32/include -IC:/Qt/5.9.1/mingw53_32/include/QtWidgets -IC:/Qt/5.9.1/mingw53_32/include/QtGui -IC:/Qt/5.9.1/mingw53_32/include/QtANGLE -IC:/Qt/5.9.1/mingw53_32/include/QtSerialPort -IC:/Qt/5.9.1/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Calculator\serialport_ctl.h -o debug\moc_serialport_ctl.cpp
 
 debug/moc_packanalysis.cpp: C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qobject.h \
@@ -350,12 +366,28 @@ debug/moc_packanalysis.cpp: C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvarlengtharray.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qcontainerfwd.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qobject_impl.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QByteArray \
 		../Calculator/main.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qhash.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qiodevice.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qshareddata.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvector.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qpoint.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		../Calculator/packanalysis.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.9.1/mingw53_32/bin/moc.exe
-	C:\Qt\5.9.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++ -IE:/GitHub/Calculator/Calculator -IC:/Qt/5.9.1/mingw53_32/include -IC:/Qt/5.9.1/mingw53_32/include/QtWidgets -IC:/Qt/5.9.1/mingw53_32/include/QtGui -IC:/Qt/5.9.1/mingw53_32/include/QtANGLE -IC:/Qt/5.9.1/mingw53_32/include/QtSerialPort -IC:/Qt/5.9.1/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Calculator\packanalysis.h -o debug\moc_packanalysis.cpp
+	C:\Qt\5.9.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++ -IE:/GitHub/Calculator/Calculator -IC:/Qt/5.9.1/mingw53_32/include/QWT -IC:/Qt/5.9.1/mingw53_32/include -IC:/Qt/5.9.1/mingw53_32/include/QtWidgets -IC:/Qt/5.9.1/mingw53_32/include/QtGui -IC:/Qt/5.9.1/mingw53_32/include/QtANGLE -IC:/Qt/5.9.1/mingw53_32/include/QtSerialPort -IC:/Qt/5.9.1/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Calculator\packanalysis.h -o debug\moc_packanalysis.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -492,8 +524,10 @@ debug/main.o: ../Calculator/main.cpp ../Calculator/mainwindow.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QThread \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qthread.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtGui/QPalette \
 		../Calculator/main.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
 		../Calculator/serialport_ctl.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QString \
@@ -622,8 +656,10 @@ debug/mainwindow.o: ../Calculator/mainwindow.cpp ../Calculator/mainwindow.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QThread \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qthread.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtGui/QPalette \
 		../Calculator/main.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
 		../Calculator/serialport_ctl.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/QString \
@@ -747,7 +783,21 @@ debug/serialport_ctl.o: ../Calculator/serialport_ctl.cpp ../Calculator/serialpor
 		C:/Qt/5.9.1/mingw53_32/include/QtSerialPort/QSerialPortInfo \
 		C:/Qt/5.9.1/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		../Calculator/main.h \
-		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qhash.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qshareddata.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvector.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qpoint.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\serialport_ctl.o ..\Calculator\serialport_ctl.cpp
 
 debug/packanalysis.o: ../Calculator/packanalysis.cpp ../Calculator/packanalysis.h \
@@ -798,8 +848,24 @@ debug/packanalysis.o: ../Calculator/packanalysis.cpp ../Calculator/packanalysis.
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvarlengtharray.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qcontainerfwd.h \
 		C:/Qt/5.9.1/mingw53_32/include/QtCore/qobject_impl.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QByteArray \
 		../Calculator/main.h \
-		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QMutex \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qhash.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qiodevice.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qshareddata.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qvector.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qpoint.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\packanalysis.o ..\Calculator\packanalysis.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[26];
-    char stringdata0[536];
+    QByteArrayData data[38];
+    char stringdata0[840];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,33 +37,50 @@ QT_MOC_LITERAL(2, 27, 0), // ""
 QT_MOC_LITERAL(3, 28, 8), // "QString&"
 QT_MOC_LITERAL(4, 37, 8), // "portname"
 QT_MOC_LITERAL(5, 46, 4), // "Baud"
-QT_MOC_LITERAL(6, 51, 16), // "Close_SerialPort"
-QT_MOC_LITERAL(7, 68, 7), // "SendCmd"
-QT_MOC_LITERAL(8, 76, 3), // "cmd"
-QT_MOC_LITERAL(9, 80, 42), // "on_pushButton_UpdateSerialPor..."
-QT_MOC_LITERAL(10, 123, 34), // "on_checkBox_SerialPortOpen_cl..."
-QT_MOC_LITERAL(11, 158, 22), // "SerialPort_Closed_SLOT"
-QT_MOC_LITERAL(12, 181, 26), // "on_pushButton_Lock_clicked"
-QT_MOC_LITERAL(13, 208, 28), // "on_pushButton_UnLock_clicked"
-QT_MOC_LITERAL(14, 237, 32), // "on_pushButton_SendHeight_clicked"
-QT_MOC_LITERAL(15, 270, 31), // "on_pushButton_incHeight_clicked"
-QT_MOC_LITERAL(16, 302, 31), // "on_pushButton_decHeight_clicked"
-QT_MOC_LITERAL(17, 334, 36), // "on_pushButton_SerialPortSend_..."
-QT_MOC_LITERAL(18, 371, 12), // "StatusUpdate"
-QT_MOC_LITERAL(19, 384, 4), // "type"
-QT_MOC_LITERAL(20, 389, 5), // "value"
-QT_MOC_LITERAL(21, 395, 30), // "on_pushButton_SaveCoef_clicked"
-QT_MOC_LITERAL(22, 426, 27), // "on_pushButton_Front_clicked"
-QT_MOC_LITERAL(23, 454, 26), // "on_pushButton_Back_clicked"
-QT_MOC_LITERAL(24, 481, 26), // "on_pushButton_Left_clicked"
-QT_MOC_LITERAL(25, 508, 27) // "on_pushButton_Right_clicked"
+QT_MOC_LITERAL(6, 51, 16), // "Open_SerialPort2"
+QT_MOC_LITERAL(7, 68, 16), // "Close_SerialPort"
+QT_MOC_LITERAL(8, 85, 17), // "Close_SerialPort2"
+QT_MOC_LITERAL(9, 103, 7), // "SendCmd"
+QT_MOC_LITERAL(10, 111, 3), // "cmd"
+QT_MOC_LITERAL(11, 115, 8), // "TransCmd"
+QT_MOC_LITERAL(12, 124, 42), // "on_pushButton_UpdateSerialPor..."
+QT_MOC_LITERAL(13, 167, 34), // "on_checkBox_SerialPortOpen_cl..."
+QT_MOC_LITERAL(14, 202, 44), // "on_pushButton_UpdateSerialPor..."
+QT_MOC_LITERAL(15, 247, 36), // "on_checkBox_SerialPortOpen_2_..."
+QT_MOC_LITERAL(16, 284, 22), // "SerialPort_Opened_SLOT"
+QT_MOC_LITERAL(17, 307, 22), // "SerialPort_Closed_SLOT"
+QT_MOC_LITERAL(18, 330, 23), // "SerialPort_Written_SLOT"
+QT_MOC_LITERAL(19, 354, 26), // "on_pushButton_Lock_clicked"
+QT_MOC_LITERAL(20, 381, 28), // "on_pushButton_UnLock_clicked"
+QT_MOC_LITERAL(21, 410, 32), // "on_pushButton_SendHeight_clicked"
+QT_MOC_LITERAL(22, 443, 31), // "on_pushButton_incHeight_clicked"
+QT_MOC_LITERAL(23, 475, 31), // "on_pushButton_decHeight_clicked"
+QT_MOC_LITERAL(24, 507, 36), // "on_pushButton_SerialPortSend_..."
+QT_MOC_LITERAL(25, 544, 12), // "StatusUpdate"
+QT_MOC_LITERAL(26, 557, 4), // "type"
+QT_MOC_LITERAL(27, 562, 5), // "value"
+QT_MOC_LITERAL(28, 568, 27), // "on_pushButton_Front_clicked"
+QT_MOC_LITERAL(29, 596, 26), // "on_pushButton_Back_clicked"
+QT_MOC_LITERAL(30, 623, 26), // "on_pushButton_Left_clicked"
+QT_MOC_LITERAL(31, 650, 27), // "on_pushButton_Right_clicked"
+QT_MOC_LITERAL(32, 678, 30), // "on_pushButton_SaveCoef_clicked"
+QT_MOC_LITERAL(33, 709, 33), // "on_pushButton_ClearOffset_cli..."
+QT_MOC_LITERAL(34, 743, 29), // "on_pushButton_SendPID_clicked"
+QT_MOC_LITERAL(35, 773, 29), // "on_pushButton_ReadPID_clicked"
+QT_MOC_LITERAL(36, 803, 31), // "on_comboBox_currentIndexChanged"
+QT_MOC_LITERAL(37, 835, 4) // "arg1"
 
     },
     "MainWindow\0Open_SerialPort\0\0QString&\0"
-    "portname\0Baud\0Close_SerialPort\0SendCmd\0"
-    "cmd\0on_pushButton_UpdateSerialPortList_clicked\0"
+    "portname\0Baud\0Open_SerialPort2\0"
+    "Close_SerialPort\0Close_SerialPort2\0"
+    "SendCmd\0cmd\0TransCmd\0"
+    "on_pushButton_UpdateSerialPortList_clicked\0"
     "on_checkBox_SerialPortOpen_clicked\0"
-    "SerialPort_Closed_SLOT\0"
+    "on_pushButton_UpdateSerialPortList_2_clicked\0"
+    "on_checkBox_SerialPortOpen_2_clicked\0"
+    "SerialPort_Opened_SLOT\0SerialPort_Closed_SLOT\0"
+    "SerialPort_Written_SLOT\0"
     "on_pushButton_Lock_clicked\0"
     "on_pushButton_UnLock_clicked\0"
     "on_pushButton_SendHeight_clicked\0"
@@ -71,11 +88,15 @@ QT_MOC_LITERAL(25, 508, 27) // "on_pushButton_Right_clicked"
     "on_pushButton_decHeight_clicked\0"
     "on_pushButton_SerialPortSend_clicked\0"
     "StatusUpdate\0type\0value\0"
-    "on_pushButton_SaveCoef_clicked\0"
     "on_pushButton_Front_clicked\0"
     "on_pushButton_Back_clicked\0"
     "on_pushButton_Left_clicked\0"
-    "on_pushButton_Right_clicked"
+    "on_pushButton_Right_clicked\0"
+    "on_pushButton_SaveCoef_clicked\0"
+    "on_pushButton_ClearOffset_clicked\0"
+    "on_pushButton_SendPID_clicked\0"
+    "on_pushButton_ReadPID_clicked\0"
+    "on_comboBox_currentIndexChanged\0arg1"
 };
 #undef QT_MOC_LITERAL
 
@@ -85,39 +106,53 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  104,    2, 0x06 /* Public */,
-       6,    0,  109,    2, 0x06 /* Public */,
-       7,    1,  110,    2, 0x06 /* Public */,
+       1,    2,  159,    2, 0x06 /* Public */,
+       6,    2,  164,    2, 0x06 /* Public */,
+       7,    0,  169,    2, 0x06 /* Public */,
+       8,    0,  170,    2, 0x06 /* Public */,
+       9,    1,  171,    2, 0x06 /* Public */,
+      11,    1,  174,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    0,  113,    2, 0x08 /* Private */,
-      10,    0,  114,    2, 0x08 /* Private */,
-      11,    0,  115,    2, 0x08 /* Private */,
-      12,    0,  116,    2, 0x08 /* Private */,
-      13,    0,  117,    2, 0x08 /* Private */,
-      14,    0,  118,    2, 0x08 /* Private */,
-      15,    0,  119,    2, 0x08 /* Private */,
-      16,    0,  120,    2, 0x08 /* Private */,
-      17,    0,  121,    2, 0x08 /* Private */,
-      18,    2,  122,    2, 0x08 /* Private */,
-      21,    0,  127,    2, 0x08 /* Private */,
-      22,    0,  128,    2, 0x08 /* Private */,
-      23,    0,  129,    2, 0x08 /* Private */,
-      24,    0,  130,    2, 0x08 /* Private */,
-      25,    0,  131,    2, 0x08 /* Private */,
+      12,    0,  177,    2, 0x08 /* Private */,
+      13,    0,  178,    2, 0x08 /* Private */,
+      14,    0,  179,    2, 0x08 /* Private */,
+      15,    0,  180,    2, 0x08 /* Private */,
+      16,    0,  181,    2, 0x08 /* Private */,
+      17,    0,  182,    2, 0x08 /* Private */,
+      18,    0,  183,    2, 0x08 /* Private */,
+      19,    0,  184,    2, 0x08 /* Private */,
+      20,    0,  185,    2, 0x08 /* Private */,
+      21,    0,  186,    2, 0x08 /* Private */,
+      22,    0,  187,    2, 0x08 /* Private */,
+      23,    0,  188,    2, 0x08 /* Private */,
+      24,    0,  189,    2, 0x08 /* Private */,
+      25,    2,  190,    2, 0x08 /* Private */,
+      28,    0,  195,    2, 0x08 /* Private */,
+      29,    0,  196,    2, 0x08 /* Private */,
+      30,    0,  197,    2, 0x08 /* Private */,
+      31,    0,  198,    2, 0x08 /* Private */,
+      32,    0,  199,    2, 0x08 /* Private */,
+      33,    0,  200,    2, 0x08 /* Private */,
+      34,    0,  201,    2, 0x08 /* Private */,
+      35,    0,  202,    2, 0x08 /* Private */,
+      36,    1,  203,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    4,    5,
+    QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    4,    5,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QByteArray,    8,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QByteArray,   10,
+    QMetaType::Void, QMetaType::QByteArray,   10,
 
  // slots: parameters
     QMetaType::Void,
@@ -129,12 +164,20 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Char, QMetaType::QByteArray,   19,   20,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Char, QMetaType::QByteArray,   26,   27,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   37,
 
        0        // eod
 };
@@ -146,23 +189,34 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->Open_SerialPort((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 1: _t->Close_SerialPort(); break;
-        case 2: _t->SendCmd((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 3: _t->on_pushButton_UpdateSerialPortList_clicked(); break;
-        case 4: _t->on_checkBox_SerialPortOpen_clicked(); break;
-        case 5: _t->SerialPort_Closed_SLOT(); break;
-        case 6: _t->on_pushButton_Lock_clicked(); break;
-        case 7: _t->on_pushButton_UnLock_clicked(); break;
-        case 8: _t->on_pushButton_SendHeight_clicked(); break;
-        case 9: _t->on_pushButton_incHeight_clicked(); break;
-        case 10: _t->on_pushButton_decHeight_clicked(); break;
-        case 11: _t->on_pushButton_SerialPortSend_clicked(); break;
-        case 12: _t->StatusUpdate((*reinterpret_cast< char(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
-        case 13: _t->on_pushButton_SaveCoef_clicked(); break;
-        case 14: _t->on_pushButton_Front_clicked(); break;
-        case 15: _t->on_pushButton_Back_clicked(); break;
-        case 16: _t->on_pushButton_Left_clicked(); break;
-        case 17: _t->on_pushButton_Right_clicked(); break;
+        case 1: _t->Open_SerialPort2((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 2: _t->Close_SerialPort(); break;
+        case 3: _t->Close_SerialPort2(); break;
+        case 4: _t->SendCmd((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 5: _t->TransCmd((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 6: _t->on_pushButton_UpdateSerialPortList_clicked(); break;
+        case 7: _t->on_checkBox_SerialPortOpen_clicked(); break;
+        case 8: _t->on_pushButton_UpdateSerialPortList_2_clicked(); break;
+        case 9: _t->on_checkBox_SerialPortOpen_2_clicked(); break;
+        case 10: _t->SerialPort_Opened_SLOT(); break;
+        case 11: _t->SerialPort_Closed_SLOT(); break;
+        case 12: _t->SerialPort_Written_SLOT(); break;
+        case 13: _t->on_pushButton_Lock_clicked(); break;
+        case 14: _t->on_pushButton_UnLock_clicked(); break;
+        case 15: _t->on_pushButton_SendHeight_clicked(); break;
+        case 16: _t->on_pushButton_incHeight_clicked(); break;
+        case 17: _t->on_pushButton_decHeight_clicked(); break;
+        case 18: _t->on_pushButton_SerialPortSend_clicked(); break;
+        case 19: _t->StatusUpdate((*reinterpret_cast< char(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
+        case 20: _t->on_pushButton_Front_clicked(); break;
+        case 21: _t->on_pushButton_Back_clicked(); break;
+        case 22: _t->on_pushButton_Left_clicked(); break;
+        case 23: _t->on_pushButton_Right_clicked(); break;
+        case 24: _t->on_pushButton_SaveCoef_clicked(); break;
+        case 25: _t->on_pushButton_ClearOffset_clicked(); break;
+        case 26: _t->on_pushButton_SendPID_clicked(); break;
+        case 27: _t->on_pushButton_ReadPID_clicked(); break;
+        case 28: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -176,16 +230,37 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
+            typedef void (MainWindow::*_t)(QString & , int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::Open_SerialPort2)) {
+                *result = 1;
+                return;
+            }
+        }
+        {
             typedef void (MainWindow::*_t)();
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::Close_SerialPort)) {
-                *result = 1;
+                *result = 2;
+                return;
+            }
+        }
+        {
+            typedef void (MainWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::Close_SerialPort2)) {
+                *result = 3;
                 return;
             }
         }
         {
             typedef void (MainWindow::*_t)(QByteArray );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::SendCmd)) {
-                *result = 2;
+                *result = 4;
+                return;
+            }
+        }
+        {
+            typedef void (MainWindow::*_t)(QByteArray );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::TransCmd)) {
+                *result = 5;
                 return;
             }
         }
@@ -217,13 +292,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 29;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 29)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 29;
     }
     return _id;
 }
@@ -236,16 +311,36 @@ void MainWindow::Open_SerialPort(QString & _t1, int _t2)
 }
 
 // SIGNAL 1
-void MainWindow::Close_SerialPort()
+void MainWindow::Open_SerialPort2(QString & _t1, int _t2)
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
+void MainWindow::Close_SerialPort()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+}
+
+// SIGNAL 3
+void MainWindow::Close_SerialPort2()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
 void MainWindow::SendCmd(QByteArray _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void MainWindow::TransCmd(QByteArray _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

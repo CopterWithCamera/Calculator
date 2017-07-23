@@ -88,10 +88,11 @@ SerialPort_Close()
 void SerialPort_Ctl::
 SerialPort_bytesWrite(QByteArray sendData)
 {
-    sendBuffer =sendData;
-    Writeport();
-
-    emit SerialPort_Written();
+    if(port != nullptr){
+        sendBuffer.append(sendData);
+        Writeport();
+        emit SerialPort_Written();
+    }
 }
 
 void SerialPort_Ctl::CallAnalysis()
