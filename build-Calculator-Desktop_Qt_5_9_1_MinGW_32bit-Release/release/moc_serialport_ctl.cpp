@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SerialPort_Ctl_t {
-    QByteArrayData data[18];
-    char stringdata0[218];
+    QByteArrayData data[17];
+    char stringdata0[206];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,23 +37,22 @@ QT_MOC_LITERAL(2, 33, 0), // ""
 QT_MOC_LITERAL(3, 34, 17), // "SerialPort_Closed"
 QT_MOC_LITERAL(4, 52, 18), // "SerialPort_Written"
 QT_MOC_LITERAL(5, 71, 10), // "TranstoAna"
-QT_MOC_LITERAL(6, 82, 11), // "QByteArray&"
-QT_MOC_LITERAL(7, 94, 4), // "data"
-QT_MOC_LITERAL(8, 99, 15), // "SerialPort_Open"
-QT_MOC_LITERAL(9, 115, 8), // "QString&"
-QT_MOC_LITERAL(10, 124, 8), // "portname"
-QT_MOC_LITERAL(11, 133, 4), // "Baud"
-QT_MOC_LITERAL(12, 138, 16), // "SerialPort_Close"
-QT_MOC_LITERAL(13, 155, 21), // "SerialPort_bytesWrite"
-QT_MOC_LITERAL(14, 177, 8), // "sendData"
-QT_MOC_LITERAL(15, 186, 12), // "CallAnalysis"
-QT_MOC_LITERAL(16, 199, 8), // "Readport"
-QT_MOC_LITERAL(17, 208, 9) // "Writeport"
+QT_MOC_LITERAL(6, 82, 4), // "data"
+QT_MOC_LITERAL(7, 87, 15), // "SerialPort_Open"
+QT_MOC_LITERAL(8, 103, 8), // "QString&"
+QT_MOC_LITERAL(9, 112, 8), // "portname"
+QT_MOC_LITERAL(10, 121, 4), // "Baud"
+QT_MOC_LITERAL(11, 126, 16), // "SerialPort_Close"
+QT_MOC_LITERAL(12, 143, 21), // "SerialPort_bytesWrite"
+QT_MOC_LITERAL(13, 165, 8), // "sendData"
+QT_MOC_LITERAL(14, 174, 12), // "CallAnalysis"
+QT_MOC_LITERAL(15, 187, 8), // "Readport"
+QT_MOC_LITERAL(16, 196, 9) // "Writeport"
 
     },
     "SerialPort_Ctl\0SerialPort_Opened\0\0"
     "SerialPort_Closed\0SerialPort_Written\0"
-    "TranstoAna\0QByteArray&\0data\0SerialPort_Open\0"
+    "TranstoAna\0data\0SerialPort_Open\0"
     "QString&\0portname\0Baud\0SerialPort_Close\0"
     "SerialPort_bytesWrite\0sendData\0"
     "CallAnalysis\0Readport\0Writeport"
@@ -80,23 +79,23 @@ static const uint qt_meta_data_SerialPort_Ctl[] = {
        5,    1,   67,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    2,   70,    2, 0x0a /* Public */,
-      12,    0,   75,    2, 0x0a /* Public */,
-      13,    1,   76,    2, 0x0a /* Public */,
-      15,    0,   79,    2, 0x08 /* Private */,
-      16,    0,   80,    2, 0x08 /* Private */,
-      17,    0,   81,    2, 0x08 /* Private */,
+       7,    2,   70,    2, 0x0a /* Public */,
+      11,    0,   75,    2, 0x0a /* Public */,
+      12,    1,   76,    2, 0x0a /* Public */,
+      14,    0,   79,    2, 0x08 /* Private */,
+      15,    0,   80,    2, 0x08 /* Private */,
+      16,    0,   81,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, QMetaType::QByteArray,    6,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 9, QMetaType::Int,   10,   11,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::Int,    9,   10,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QByteArray,   14,
+    QMetaType::Void, QMetaType::QByteArray,   13,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -147,7 +146,7 @@ void SerialPort_Ctl::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             }
         }
         {
-            typedef void (SerialPort_Ctl::*_t)(QByteArray & );
+            typedef void (SerialPort_Ctl::*_t)(QByteArray );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SerialPort_Ctl::TranstoAna)) {
                 *result = 3;
                 return;
@@ -211,7 +210,7 @@ void SerialPort_Ctl::SerialPort_Written()
 }
 
 // SIGNAL 3
-void SerialPort_Ctl::TranstoAna(QByteArray & _t1)
+void SerialPort_Ctl::TranstoAna(QByteArray _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);

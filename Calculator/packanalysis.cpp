@@ -6,7 +6,7 @@ PackAnalysis::PackAnalysis(QObject *parent)
     connect(this,SIGNAL(DataImported()),this,SLOT(unPack()));
 }
 
-void PackAnalysis::ImportData(QByteArray& newData)
+void PackAnalysis::ImportData(QByteArray newData)
 {
     waitingfifo.append(newData);
     emit DataImported();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>949</width>
-    <height>500</height>
+    <width>950</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -725,7 +725,7 @@
      <string>Send</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="groupBox_PID">
     <property name="geometry">
      <rect>
       <x>690</x>
@@ -1014,7 +1014,7 @@
    <widget class="QGroupBox" name="groupBox_SerialCtl_2">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>830</x>
       <y>230</y>
       <width>111</width>
       <height>161</height>
@@ -1078,6 +1078,58 @@
        <string>57600</string>
       </property>
      </item>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Cal">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>230</y>
+      <width>131</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Calibration</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_Gyro_Cal">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>陀螺仪校准</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Acc_Cal">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>111</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>加速度校准</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Comp_Cal">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>111</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>罗盘校准</string>
+     </property>
     </widget>
    </widget>
   </widget>

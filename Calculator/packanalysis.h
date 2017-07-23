@@ -21,7 +21,7 @@ signals:
     void DataImported();
 
 public slots:
-    void ImportData(QByteArray& newData);
+    void ImportData(QByteArray newData);
 
 private slots:
     void unPack();

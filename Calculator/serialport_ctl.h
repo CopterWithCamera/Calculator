@@ -27,7 +27,7 @@ signals:
     void SerialPort_Closed();
     void SerialPort_Written();
     //void SerialPort_Read();
-    void TranstoAna(QByteArray& data);
+    void TranstoAna(QByteArray data);
     //void SerialPort_ListGot();
 
 public slots:

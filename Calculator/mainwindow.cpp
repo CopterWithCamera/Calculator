@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     qRegisterMetaType<QString>("QString&");
-    qRegisterMetaType<QString>("QByteArray&");
+    //qRegisterMetaType<QString>("QByteArray&");
     qRegisterMetaType<QString>("QByteArray");
 
     fontRed.setColor(QPalette::WindowText,Qt::red);
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,&MainWindow::Close_SerialPort2,&MyCom2,&SerialPort_Ctl::SerialPort_Close);
     connect(this,&MainWindow::TransCmd,&MyCom2,&SerialPort_Ctl::SerialPort_bytesWrite);
     connect(&MyCom2,SIGNAL(SerialPort_Opened()),this,SLOT(SerialPort_Opened_SLOT()));
-    connect(&MyCom2,SIGNAL(SerialPort_Written()),this,SLOT(SerialPort_Written_SLOT()));
+    //connect(&MyCom2,SIGNAL(SerialPort_Written()),this,SLOT(SerialPort_Written_SLOT()));
     connect(&MyCom2,SIGNAL(SerialPort_Closed()),this,SLOT(SerialPort_Closed_SLOT()));
 
     MyAna.moveToThread((&MyAnaThread));
@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     on_pushButton_UpdateSerialPortList_clicked();
 
-    connect(&MyCom,SIGNAL(TranstoAna(QByteArray&)),&MyAna,SLOT(ImportData(QByteArray&)));
+    connect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyAna,SLOT(ImportData(QByteArray)));
     connect(&MyAna,SIGNAL(StatusUpdated(char,QByteArray)),this,SLOT(StatusUpdate(char,QByteArray)));
 
     ui->plainTextEdit->setPlainText("Welcome, GroundStation Ready!\n");
@@ -177,9 +177,11 @@ void MainWindow::on_checkBox_SerialPortOpen_2_clicked()
     if(ui->checkBox_SerialPortOpen_2->isChecked()){
         QString portName =ui->comboBox_SerialPortList_2->currentText();
         int baud =ui->comboBox_SerialPortBaud_2->currentText().toInt();
+        connect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyCom2,SLOT(SerialPort_bytesWrite(QByteArray)));
         emit Open_SerialPort2(portName,baud);
     }else{
         emit Close_SerialPort2();
+        disconnect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyCom2,SLOT(SerialPort_bytesWrite(QByteArray)));
     }
 }
 
@@ -200,12 +202,12 @@ void MainWindow::SerialPort_Written_SLOT()
 
 void MainWindow::StatusUpdate(char type, QByteArray value)
 {
-    int a =(unsigned char)type, len, i;
+    int a =(unsigned char)type, i;//len
     float fps;
     ushort PID_ReadBuffer[9];
     QString str;
     QByteArray Cmd;
-    char *CmdBuffer;
+    //char *CmdBuffer;
     switch(a){
 
         case 0x05:
@@ -342,6 +344,7 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                 str.setNum(PID_ReadBuffer[8]);ui->lineEdit_PID3_D->setText(str);
             }
             break;
+            /*
         case 0xF1:
             len =value.size() +5;
             CmdBuffer = new char[len];
@@ -357,6 +360,7 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
 
             emit SendCmd(Cmd);
             break;
+            */
         case 0xF2:
             uchar tmp;
 
@@ -659,7 +663,44 @@ void MainWindow::on_pushButton_ReadPID_clicked()
     emit SendCmd(Cmd);
 }
 
+void MainWindow::on_pushButton_Gyro_Cal_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x01;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x02;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
 
+void MainWindow::on_pushButton_Acc_Cal_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x01;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x01;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
+
+void MainWindow::on_pushButton_Comp_Cal_clicked()
+{
+    char CmdBuffer[6];
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x01;
+    CmdBuffer[3] =1;
+    CmdBuffer[4] =0x04;
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
 
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 {

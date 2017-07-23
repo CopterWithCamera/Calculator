@@ -89,10 +89,14 @@ private slots:
     void on_pushButton_Right_clicked();
     void on_pushButton_SaveCoef_clicked();
     void on_pushButton_ClearOffset_clicked();
-
+    //PID Update
     void on_pushButton_SendPID_clicked();
     void on_pushButton_ReadPID_clicked();
     void on_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_pushButton_Gyro_Cal_clicked();
+    void on_pushButton_Acc_Cal_clicked();
+    void on_pushButton_Comp_Cal_clicked();
 };
 
 #endif // MAINWINDOW_H
