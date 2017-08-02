@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PackAnalysis_t {
-    QByteArrayData data[10];
-    char stringdata0[90];
+    QByteArrayData data[9];
+    char stringdata0[78];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,14 +38,12 @@ QT_MOC_LITERAL(3, 28, 4), // "type"
 QT_MOC_LITERAL(4, 33, 5), // "value"
 QT_MOC_LITERAL(5, 39, 12), // "DataImported"
 QT_MOC_LITERAL(6, 52, 10), // "ImportData"
-QT_MOC_LITERAL(7, 63, 11), // "QByteArray&"
-QT_MOC_LITERAL(8, 75, 7), // "newData"
-QT_MOC_LITERAL(9, 83, 6) // "unPack"
+QT_MOC_LITERAL(7, 63, 7), // "newData"
+QT_MOC_LITERAL(8, 71, 6) // "unPack"
 
     },
     "PackAnalysis\0StatusUpdated\0\0type\0value\0"
-    "DataImported\0ImportData\0QByteArray&\0"
-    "newData\0unPack"
+    "DataImported\0ImportData\0newData\0unPack"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,14 +66,14 @@ static const uint qt_meta_data_PackAnalysis[] = {
 
  // slots: name, argc, parameters, tag, flags
        6,    1,   40,    2, 0x0a /* Public */,
-       9,    0,   43,    2, 0x08 /* Private */,
+       8,    0,   43,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Char, QMetaType::QByteArray,    3,    4,
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 7,    8,
+    QMetaType::Void, QMetaType::QByteArray,    7,
     QMetaType::Void,
 
        0        // eod

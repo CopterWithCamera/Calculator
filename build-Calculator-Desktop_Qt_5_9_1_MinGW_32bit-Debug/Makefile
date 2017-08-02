@@ -235,6 +235,7 @@ Makefile: ../Calculator/Calculator.pro C:/Qt/5.9.1/mingw53_32/mkspecs/win32-g++/
 		C:/Qt/5.9.1/mingw53_32/mkspecs/features/lex.prf \
 		../Calculator/Calculator.pro \
 		C:/Qt/5.9.1/mingw53_32/lib/qtmaind.prl \
+		C:/Qt/5.9.1/mingw53_32/lib/Qt5Charts.prl \
 		C:/Qt/5.9.1/mingw53_32/lib/Qt5Widgets.prl \
 		C:/Qt/5.9.1/mingw53_32/lib/Qt5Gui.prl \
 		C:/Qt/5.9.1/mingw53_32/lib/Qt5SerialPort.prl \
@@ -414,6 +415,7 @@ C:/Qt/5.9.1/mingw53_32/mkspecs/features/yacc.prf:
 C:/Qt/5.9.1/mingw53_32/mkspecs/features/lex.prf:
 ../Calculator/Calculator.pro:
 C:/Qt/5.9.1/mingw53_32/lib/qtmaind.prl:
+C:/Qt/5.9.1/mingw53_32/lib/Qt5Charts.prl:
 C:/Qt/5.9.1/mingw53_32/lib/Qt5Widgets.prl:
 C:/Qt/5.9.1/mingw53_32/lib/Qt5Gui.prl:
 C:/Qt/5.9.1/mingw53_32/lib/Qt5SerialPort.prl:

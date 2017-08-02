@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     MyAnaThread.start();
 
     on_pushButton_UpdateSerialPortList_clicked();
+    on_pushButton_UpdateSerialPortList_2_clicked();
 
     connect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyAna,SLOT(ImportData(QByteArray)));
     connect(&MyAna,SIGNAL(StatusUpdated(char,QByteArray)),this,SLOT(StatusUpdate(char,QByteArray)));
@@ -174,14 +175,19 @@ void MainWindow::on_pushButton_UpdateSerialPortList_2_clicked()
 
 void MainWindow::on_checkBox_SerialPortOpen_2_clicked()
 {
+    QString portName =ui->comboBox_SerialPortList_2->currentText();
+    QString theOtherName =ui->comboBox_SerialPortList->currentText();
     if(ui->checkBox_SerialPortOpen_2->isChecked()){
-        QString portName =ui->comboBox_SerialPortList_2->currentText();
-        int baud =ui->comboBox_SerialPortBaud_2->currentText().toInt();
-        connect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyCom2,SLOT(SerialPort_bytesWrite(QByteArray)));
-        emit Open_SerialPort2(portName,baud);
+        if(portName != theOtherName){
+            int baud =ui->comboBox_SerialPortBaud_2->currentText().toInt();
+            connect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyCom2,SLOT(SerialPort_bytesWrite(QByteArray)));
+            emit Open_SerialPort2(portName,baud);
+        }
     }else{
-        emit Close_SerialPort2();
-        disconnect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyCom2,SLOT(SerialPort_bytesWrite(QByteArray)));
+        if(portName != theOtherName){
+            emit Close_SerialPort2();
+            disconnect(&MyCom,SIGNAL(TranstoAna(QByteArray)),&MyCom2,SLOT(SerialPort_bytesWrite(QByteArray)));
+        }
     }
 }
 
@@ -443,7 +449,7 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                     break;
             }
             tmp =value[6];
-            fps =tmp/10.0;
+            fps =tmp/1.0;
             str.setNum(fps);ui->label_FpsValue->setText(str);
             if(fps >=9)
                 ui->label_FpsValue->setPalette(fontGreen);

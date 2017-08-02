@@ -14,7 +14,7 @@ void PackAnalysis::ImportData(QByteArray newData)
 
 void PackAnalysis::unPack()
 {
-    if(mutex_Ana.tryLock()){
+    //if(mutex_Ana.tryLock()){
         char type =0;
         QByteArray value;
         //int fifosize;
@@ -57,6 +57,6 @@ void PackAnalysis::unPack()
                     }
                     break;
             }
-        }mutex_Ana.unlock();
+        //}mutex_Ana.unlock();
     }
 }
