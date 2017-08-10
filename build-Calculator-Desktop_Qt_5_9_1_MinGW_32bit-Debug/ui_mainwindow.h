@@ -105,12 +105,18 @@ public:
     QCheckBox *checkBox_SerialPortOpen_2;
     QComboBox *comboBox_SerialPortList_2;
     QComboBox *comboBox_SerialPortBaud_2;
+    QGroupBox *groupBox;
+    QPushButton *pushButton_SendCtrlCommend;
+    QComboBox *comboBox_Ctrl_Command;
+    QGroupBox *groupBox_2;
+    QPushButton *pushButton_SendHeightCommend;
+    QComboBox *comboBox_Height_Command;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(950, 494);
+        MainWindow->resize(1070, 494);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         groupBox_SerialCtl = new QGroupBox(centralWidget);
@@ -171,7 +177,7 @@ public:
         lineEdit_HeightValue->setGeometry(QRect(20, 210, 81, 21));
         groupBox_Status = new QGroupBox(centralWidget);
         groupBox_Status->setObjectName(QStringLiteral("groupBox_Status"));
-        groupBox_Status->setGeometry(QRect(470, 10, 211, 441));
+        groupBox_Status->setGeometry(QRect(470, 10, 211, 451));
         label_Mode = new QLabel(groupBox_Status);
         label_Mode->setObjectName(QStringLiteral("label_Mode"));
         label_Mode->setGeometry(QRect(10, 30, 91, 16));
@@ -187,7 +193,7 @@ public:
         label_ModeValue->setAlignment(Qt::AlignCenter);
         label_InterModeValue = new QLabel(groupBox_Status);
         label_InterModeValue->setObjectName(QStringLiteral("label_InterModeValue"));
-        label_InterModeValue->setGeometry(QRect(10, 120, 91, 41));
+        label_InterModeValue->setGeometry(QRect(10, 120, 191, 41));
         label_InterModeValue->setFont(font);
         label_InterModeValue->setFrameShape(QFrame::Panel);
         label_InterModeValue->setFrameShadow(QFrame::Sunken);
@@ -207,14 +213,14 @@ public:
         label_FlyReady->setGeometry(QRect(10, 170, 91, 16));
         label_All_OutValue = new QLabel(groupBox_Status);
         label_All_OutValue->setObjectName(QStringLiteral("label_All_OutValue"));
-        label_All_OutValue->setGeometry(QRect(110, 190, 91, 41));
+        label_All_OutValue->setGeometry(QRect(10, 400, 91, 41));
         label_All_OutValue->setFont(font);
         label_All_OutValue->setFrameShape(QFrame::Panel);
         label_All_OutValue->setFrameShadow(QFrame::Sunken);
         label_All_OutValue->setAlignment(Qt::AlignCenter);
         label_All_Out = new QLabel(groupBox_Status);
         label_All_Out->setObjectName(QStringLiteral("label_All_Out"));
-        label_All_Out->setGeometry(QRect(110, 170, 91, 16));
+        label_All_Out->setGeometry(QRect(10, 380, 91, 16));
         label_UltraStatusValue = new QLabel(groupBox_Status);
         label_UltraStatusValue->setObjectName(QStringLiteral("label_UltraStatusValue"));
         label_UltraStatusValue->setGeometry(QRect(10, 260, 91, 41));
@@ -237,14 +243,14 @@ public:
         label_Voltage->setGeometry(QRect(110, 239, 91, 16));
         label_HeightModeValue = new QLabel(groupBox_Status);
         label_HeightModeValue->setObjectName(QStringLiteral("label_HeightModeValue"));
-        label_HeightModeValue->setGeometry(QRect(110, 120, 91, 41));
+        label_HeightModeValue->setGeometry(QRect(110, 190, 91, 41));
         label_HeightModeValue->setFont(font);
         label_HeightModeValue->setFrameShape(QFrame::Panel);
         label_HeightModeValue->setFrameShadow(QFrame::Sunken);
         label_HeightModeValue->setAlignment(Qt::AlignCenter);
         label_HeightMode = new QLabel(groupBox_Status);
         label_HeightMode->setObjectName(QStringLiteral("label_HeightMode"));
-        label_HeightMode->setGeometry(QRect(110, 100, 91, 16));
+        label_HeightMode->setGeometry(QRect(110, 170, 91, 16));
         label_Height_2 = new QLabel(groupBox_Status);
         label_Height_2->setObjectName(QStringLiteral("label_Height_2"));
         label_Height_2->setGeometry(QRect(10, 309, 91, 16));
@@ -371,7 +377,7 @@ public:
         pushButton_Comp_Cal->setGeometry(QRect(10, 140, 111, 51));
         groupBox_SerialCtl_2 = new QGroupBox(centralWidget);
         groupBox_SerialCtl_2->setObjectName(QStringLiteral("groupBox_SerialCtl_2"));
-        groupBox_SerialCtl_2->setGeometry(QRect(820, 230, 111, 161));
+        groupBox_SerialCtl_2->setGeometry(QRect(950, 10, 111, 161));
         pushButton_UpdateSerialPortList_2 = new QPushButton(groupBox_SerialCtl_2);
         pushButton_UpdateSerialPortList_2->setObjectName(QStringLiteral("pushButton_UpdateSerialPortList_2"));
         pushButton_UpdateSerialPortList_2->setGeometry(QRect(10, 90, 91, 31));
@@ -384,6 +390,24 @@ public:
         comboBox_SerialPortBaud_2 = new QComboBox(groupBox_SerialCtl_2);
         comboBox_SerialPortBaud_2->setObjectName(QStringLiteral("comboBox_SerialPortBaud_2"));
         comboBox_SerialPortBaud_2->setGeometry(QRect(10, 60, 91, 21));
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(820, 230, 111, 91));
+        pushButton_SendCtrlCommend = new QPushButton(groupBox);
+        pushButton_SendCtrlCommend->setObjectName(QStringLiteral("pushButton_SendCtrlCommend"));
+        pushButton_SendCtrlCommend->setGeometry(QRect(10, 50, 91, 28));
+        comboBox_Ctrl_Command = new QComboBox(groupBox);
+        comboBox_Ctrl_Command->setObjectName(QStringLiteral("comboBox_Ctrl_Command"));
+        comboBox_Ctrl_Command->setGeometry(QRect(10, 20, 91, 21));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(820, 320, 111, 91));
+        pushButton_SendHeightCommend = new QPushButton(groupBox_2);
+        pushButton_SendHeightCommend->setObjectName(QStringLiteral("pushButton_SendHeightCommend"));
+        pushButton_SendHeightCommend->setGeometry(QRect(10, 50, 91, 28));
+        comboBox_Height_Command = new QComboBox(groupBox_2);
+        comboBox_Height_Command->setObjectName(QStringLiteral("comboBox_Height_Command"));
+        comboBox_Height_Command->setGeometry(QRect(10, 20, 91, 21));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -417,7 +441,7 @@ public:
         label_Mode->setText(QApplication::translate("MainWindow", "\346\250\241\345\274\217\357\274\232", Q_NULLPTR));
         label_ModeValue->setText(QString());
         label_InterModeValue->setText(QString());
-        label_InterMode->setText(QApplication::translate("MainWindow", "\345\247\277\346\200\201\346\250\241\345\274\217\357\274\232", Q_NULLPTR));
+        label_InterMode->setText(QApplication::translate("MainWindow", "\351\243\236\350\241\214\346\250\241\345\274\217\357\274\232", Q_NULLPTR));
         label_FlyReadyValue->setText(QString());
         label_FlyReady->setText(QApplication::translate("MainWindow", "\351\224\201\357\274\232", Q_NULLPTR));
         label_All_OutValue->setText(QString());
@@ -471,6 +495,26 @@ public:
         comboBox_SerialPortBaud_2->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "115200", Q_NULLPTR)
          << QApplication::translate("MainWindow", "57600", Q_NULLPTR)
+        );
+        groupBox->setTitle(QApplication::translate("MainWindow", "\346\216\247\345\210\266\346\214\207\344\273\244", Q_NULLPTR));
+        pushButton_SendCtrlCommend->setText(QApplication::translate("MainWindow", "Send", Q_NULLPTR));
+        comboBox_Ctrl_Command->clear();
+        comboBox_Ctrl_Command->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "1 \346\211\213\345\212\250", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "2 \346\211\213\345\212\250", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "3 \346\202\254\345\201\234", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "4 \345\211\215\350\277\233", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "5 \350\267\237\350\270\252", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "6 \345\220\216\351\200\200\351\231\215\350\220\275", Q_NULLPTR)
+        );
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "\351\253\230\345\272\246\346\214\207\344\273\244", Q_NULLPTR));
+        pushButton_SendHeightCommend->setText(QApplication::translate("MainWindow", "Send", Q_NULLPTR));
+        comboBox_Height_Command->clear();
+        comboBox_Height_Command->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "1 \346\211\213\345\212\250", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "2 \345\256\232\351\253\230", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "3 \351\231\215\350\220\275", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "4 \350\265\267\351\243\236", Q_NULLPTR)
         );
     } // retranslateUi
 

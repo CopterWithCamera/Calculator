@@ -224,7 +224,7 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
             voltage +=(uchar)value[1];
             fvoltage =voltage/100.0;
             str.setNum(fvoltage);ui->label_VoltageValue->setText(str);
-            if(voltage >=1100)
+            if(voltage >=900)
                 ui->label_VoltageValue->setPalette(fontGreen);
             else
                 ui->label_VoltageValue->setPalette(fontRed);
@@ -391,7 +391,36 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                 default:
                     break;
             }
-            tmp =value[1];str.setNum(tmp);ui->label_InterModeValue->setText(str);
+            tmp =value[1]; //copter_fly_mode
+            switch(tmp){
+                case 0:
+                    ui->label_InterModeValue->setText("手动");
+                    break;
+                case 1:
+                    ui->label_InterModeValue->setText("黑圆定点");
+                    break;
+                case 2:
+                    ui->label_InterModeValue->setText("前进找车");
+                    break;
+                case 3:
+                    ui->label_InterModeValue->setText("移动物体跟踪");
+                    break;
+                case 4:
+                    ui->label_InterModeValue->setText("后退降落");
+                    break;
+               // case 5:
+                    //     ui->label_InterModeValue->setText("前进");
+                    //     break;
+                    // case 6:
+                    //     ui->label_InterModeValue->setText("后退");
+                    //     break;
+                    // case 7:
+                    //     ui->label_InterModeValue->setText("前进中刹车");
+                    //     break;
+                    // case 8:
+                    //     ui->label_InterModeValue->setText("后退中刹车");
+                    //     break;
+            }
             tmp =value[2];
             switch(tmp){
                 case 0:
@@ -431,7 +460,7 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                 default:
                     break;
             }
-            tmp =value[5];
+            tmp =value[5]; //copter_height_mode
             switch (tmp) {
                 case 0:
                     ui->label_HeightModeValue->setText("手动");
@@ -442,6 +471,10 @@ void MainWindow::StatusUpdate(char type, QByteArray value)
                     ui->label_HeightModeValue->setPalette(fontGreen);
                     break;
                 case 2:
+                    ui->label_HeightModeValue->setText("起飞");
+                    ui->label_HeightModeValue->setPalette(fontBlue);
+                    break;
+                case 3:
                     ui->label_HeightModeValue->setText("降落");
                     ui->label_HeightModeValue->setPalette(fontBlue);
                     break;
@@ -501,21 +534,6 @@ void MainWindow::on_pushButton_UnLock_clicked()
     emit SendCmd(UnLockCmd);
 }
 
-void MainWindow::on_pushButton_SendHeight_clicked()
-{
-    Height =ui->lineEdit_HeightValue->text().toInt();
-
-    char HeightCmdBuffer[6];
-    HeightCmdBuffer[0] =0xAA;
-    HeightCmdBuffer[1] =0xAF;
-    HeightCmdBuffer[2] =0x42;
-    HeightCmdBuffer[3] =1;
-    HeightCmdBuffer[4] =Height;
-    HeightCmdBuffer[5] =SumVerify((uchar*)HeightCmdBuffer,5);
-    QByteArray HeightCmd(HeightCmdBuffer,6);
-    emit SendCmd(HeightCmd);
-}
-
 void MainWindow::on_pushButton_incHeight_clicked()
 {
     char IncHeightCmdBuffer[6];
@@ -546,6 +564,22 @@ void MainWindow::on_pushButton_decHeight_clicked()
     ui->lineEdit_HeightValue->setText(QString::number(Height));
 
     emit SendCmd(DecHeightCmd);
+}
+
+void MainWindow::on_pushButton_SendHeight_clicked()
+{
+    char HeightCmdBuffer[6];
+    HeightCmdBuffer[0] =0xAA;
+    HeightCmdBuffer[1] =0xAF;
+    HeightCmdBuffer[2] =0x42;
+    HeightCmdBuffer[3] =1;
+    Height = ui->label_HeightValue->text().toInt();
+    HeightCmdBuffer[4] =Height;
+    HeightCmdBuffer[5] =SumVerify((uchar*)HeightCmdBuffer,5);
+    QByteArray HeightCmd(HeightCmdBuffer,6);
+    ui->lineEdit_HeightValue->setText(QString::number(Height));
+
+    emit SendCmd(HeightCmd);
 }
 
 void MainWindow::on_pushButton_Front_clicked()
@@ -733,4 +767,62 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
     default:
         break;
     }
+}
+
+void MainWindow::on_pushButton_SendCtrlCommend_clicked()
+{
+    QString str;
+    char CmdBuffer[6];
+
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x43;
+    CmdBuffer[3] =1;
+
+    str = ui->comboBox_Ctrl_Command->currentText();
+    if(str == "1 手动")
+        CmdBuffer[4] =0x01;
+    else if(str == "2 手动")
+        CmdBuffer[4] =0x02;
+    else if(str == "3 悬停")
+        CmdBuffer[4] =0x03;
+    else if(str == "4 前进")
+        CmdBuffer[4] =0x04;
+    else if(str == "5 跟踪")
+        CmdBuffer[4] =0x05;
+    else if(str == "6 后退降落")
+        CmdBuffer[4] =0x06;
+
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
+}
+
+void MainWindow::on_pushButton_SendHeightCommend_clicked()
+{
+    QString str;
+    char CmdBuffer[6];
+
+    CmdBuffer[0] =0xAA;
+    CmdBuffer[1] =0xAF;
+    CmdBuffer[2] =0x44;
+    CmdBuffer[3] =1;
+
+    str = ui->comboBox_Height_Command->currentText();
+    if(str == "1 手动")
+        CmdBuffer[4] =0x01;
+    else if(str == "2 定高")
+        CmdBuffer[4] =0x02;
+    else if(str == "3 降落")
+        CmdBuffer[4] =0x03;
+    else if(str == "4 起飞")
+        CmdBuffer[4] =0x04;
+    //else if(str == "5 跟踪")
+    //    CmdBuffer[4] =0x05;
+    //else if(str == "6 后退降落")
+    //    CmdBuffer[4] =0x06;
+
+    CmdBuffer[5] =SumVerify((uchar*)CmdBuffer,5);
+    QByteArray Cmd(CmdBuffer,6);
+    emit SendCmd(Cmd);
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
+    <width>1070</width>
     <height>494</height>
    </rect>
   </property>
@@ -242,7 +242,7 @@
       <x>470</x>
       <y>10</y>
       <width>211</width>
-      <height>441</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="title">
@@ -294,7 +294,7 @@
       <rect>
        <x>10</x>
        <y>120</y>
-       <width>91</width>
+       <width>191</width>
        <height>41</height>
       </rect>
      </property>
@@ -327,7 +327,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>姿态模式：</string>
+      <string>飞行模式：</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_FlyReadyValue">
@@ -374,8 +374,8 @@
     <widget class="QLabel" name="label_All_OutValue">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>190</y>
+       <x>10</x>
+       <y>400</y>
        <width>91</width>
        <height>41</height>
       </rect>
@@ -402,8 +402,8 @@
     <widget class="QLabel" name="label_All_Out">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>170</y>
+       <x>10</x>
+       <y>380</y>
        <width>91</width>
        <height>16</height>
       </rect>
@@ -498,7 +498,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>120</y>
+       <y>190</y>
        <width>91</width>
        <height>41</height>
       </rect>
@@ -526,7 +526,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>100</y>
+       <y>170</y>
        <width>91</width>
        <height>16</height>
       </rect>
@@ -1066,8 +1066,8 @@
    <widget class="QGroupBox" name="groupBox_SerialCtl_2">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>230</y>
+      <x>950</x>
+      <y>10</y>
       <width>111</width>
       <height>161</height>
      </rect>
@@ -1128,6 +1128,128 @@
      <item>
       <property name="text">
        <string>57600</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>230</y>
+      <width>111</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>控制指令</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_SendCtrlCommend">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_Ctrl_Command">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>1 手动</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2 手动</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3 悬停</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4 前进</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5 跟踪</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6 后退降落</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>320</y>
+      <width>111</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>高度指令</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_SendHeightCommend">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>91</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_Height_Command">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>1 手动</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2 定高</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3 降落</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4 起飞</string>
       </property>
      </item>
     </widget>

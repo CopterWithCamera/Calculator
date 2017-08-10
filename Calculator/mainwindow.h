@@ -97,6 +97,8 @@ private slots:
     void on_pushButton_Gyro_Cal_clicked();
     void on_pushButton_Acc_Cal_clicked();
     void on_pushButton_Comp_Cal_clicked();
+    void on_pushButton_SendCtrlCommend_clicked();
+    void on_pushButton_SendHeightCommend_clicked();
 };
 
 #endif // MAINWINDOW_H
