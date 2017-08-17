@@ -1,10 +1,12 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-07-04T09:35:20
+# Project created by QtCreator 2017-07-05T22:05:03
 #
 #-------------------------------------------------
 
 QT       += core gui
+QT       += serialport
+QT       += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,13 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+# CONFIG += qwt
+
 
 SOURCES += \
         main.cpp \
-        dialog.cpp
+        mainwindow.cpp \
+    serialport_ctl.cpp \
+    packanalysis.cpp
 
 HEADERS += \
-        dialog.h
+        mainwindow.h \
+    serialport_ctl.h \
+    packanalysis.h \
+    main.h
 
 FORMS += \
-        dialog.ui
+        mainwindow.ui
