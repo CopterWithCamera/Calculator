@@ -1,1 +1,6 @@
-# CalculatorA QT-based calculator implementation## Branches* circle_cal1 click driven circle area calculation; * circle_cal2 input driven circle area calculation; * circle_cal3 click driven circle area calculation with out QT Designer; ## Develop Environment* Windows10 build 1607 14393.1358* QT Creator 4.3.1 (QT Frame 5.9)
+# Calculator
+四旋翼飞行控制地面站，拥有监控重要飞行参数，发送飞行命令，控制飞行模式的功能。
+
+## Develop Environment
+* Windows10 build 1607 14393.1358
+* QT Creator 4.3.1 (QT Frame 5.9)
